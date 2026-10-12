@@ -137,3 +137,9 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
   .expire-text{display:none}
   .btn-recheck{flex:0 1 auto;width:auto;min-width:0;padding:5px 7px;margin:0;font-size:9px;white-space:nowrap;border-radius:7px}
 }
+
+
+/* v0.9.7 Android readability and mobile layout refinements */
+body{background:#f2f5fa}
+@media(max-width:850px){.app-shell{padding-top:19px}.hero{padding:16px;gap:12px}.hero-copy p{line-height:1.7}.info-panel{padding:14px 15px}.panel-title{margin-bottom:10px}.rules-list,.decision-list{gap:7px}}
+@media(max-width:520px){.app-shell{padding:19px 11px 11px}.hero{padding:14px}.hero-copy p{font-size:10px;line-height:1.65}.notice-row{gap:7px;margin:10px 0}.notice{padding:7px 9px;gap:7px;border-radius:10px}.notice-icon{flex-basis:18px;height:18px;font-size:10px}.notice strong{font-size:10px;margin-bottom:2px}.notice div span{font-size:9px;line-height:1.6}.signal-grid{grid-template-columns:minmax(0,1fr)!important;gap:10px}.signal-card{min-height:0;height:auto}.signal-card-head{padding:10px 11px 9px}.signal-body{padding:9px 10px;gap:7px}.signal-card-foot{padding:8px 10px}.info-panel{padding:12px}.panel-title h3{font-size:12px}.rules-list li{font-size:10px}.decision-list span{font-size:9px}}
