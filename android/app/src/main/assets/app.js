@@ -1,5 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id);
+function setStatus(message){const el=$('status');if(el)el.textContent=String(message);}
 let seq=0, pending=new Map(), requestChain=Promise.resolve(), lastRequest=0;
 let scanning=false,stopRequested=false,checked=0,total=0,qualified=0,signals=[];
 let favorites=JSON.parse(localStorage.getItem('ati.favorites')||'[]');
