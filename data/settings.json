@@ -1,0 +1,15 @@
+{
+  "scanMode": "priority",
+  "horizonMode": "fast",
+  "orderTypes": [
+    "Market"
+  ],
+  "useCaseFilterEnabled": false,
+  "useCaseGroups": [],
+  "marketFilterEnabled": false,
+  "marketGroups": [
+    "volatile"
+  ],
+  "capital": 4,
+  "leverage": 10
+}

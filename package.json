@@ -1,0 +1,13 @@
+{
+  "name": "toobit-futures-scanner",
+  "version": "0.9.0",
+  "private": true,
+  "description": "Local Toobit USDT-M futures market scanner; no order execution.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
