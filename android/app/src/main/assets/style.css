@@ -82,3 +82,15 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
 .signal-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px}
 .signal-card{width:100%;min-width:0}
 @media(max-width:850px){.app-shell{padding-top:8px}.topbar{position:relative;top:auto;margin-top:0;padding-top:14px;padding-bottom:14px;gap:10px}.top-status{max-width:60%;flex-wrap:wrap;justify-content:flex-start}.clock-badge{white-space:normal;overflow-wrap:anywhere}.brand-title{font-size:16px}.hero{margin-top:8px}}
+
+
+/* v0.9.3 Android polish: sticky inset header, full-width recheck action, exact brand */
+@media(max-width:850px){
+  .topbar{position:sticky!important;top:0!important;z-index:100!important;margin:0 -12px 14px!important;padding:22px 14px 15px!important;min-height:82px;background:rgba(4,18,35,.98)!important;border-bottom:1px solid #16436c;backdrop-filter:blur(14px)}
+  .app-shell{padding-top:0!important}
+  .signal-card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:10px 12px;min-width:0}
+  .signal-card-foot .pin-control{flex:1 1 auto;min-width:0}
+  .signal-card-foot .expire-text{flex:0 1 auto}
+  .signal-card-foot .btn-recheck{display:block;box-sizing:border-box;flex:1 1 100%;width:100%;min-width:0;max-width:100%;margin:2px 0 0;padding:10px 8px;white-space:normal;overflow-wrap:anywhere;text-align:center;line-height:1.6}
+}
+@media(max-width:520px){.brand-title{font-size:14px!important;letter-spacing:0!important;white-space:normal;line-height:1.5}.topbar{padding-top:24px!important}}
