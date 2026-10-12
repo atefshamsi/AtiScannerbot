@@ -77,3 +77,8 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
 .btn-primary{background:linear-gradient(120deg,#086bff,#0759ed);color:#fff;box-shadow:none}.btn-secondary{background:#06172b;border-color:#0874d9;color:#dbeaff}.btn{border-radius:10px}.section-kicker{color:#4d9eff}.signal-card{background:linear-gradient(180deg,#071a30,#041326);border-color:#14385c}
 @media(max-width:1250px){.controls-panel .hero-actions{grid-template-columns:1fr 1fr}.controls-panel .settings-panel{grid-column:1/-1}.hero{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app-shell{padding:0 12px 14px}.topbar{margin:0 -12px 14px;padding:12px 14px}.hero{grid-template-columns:1fr;padding:16px}.hero-copy{grid-column:1;grid-row:1}.hero-market{grid-column:1;grid-row:2}.controls-panel{padding:13px;border-top:1px solid #10365b;border-radius:14px;margin-top:12px}.controls-panel .hero-actions{grid-template-columns:1fr}.controls-panel .settings-panel{grid-column:auto}.controls-panel .capital-fields{grid-template-columns:1fr 1fr}.controls-panel .button-row{flex-direction:row}.controls-panel .button-row .btn{flex:1}.stats-grid{display:grid}}
+
+/* Android app: phone-first cards and a header clear of system UI */
+.signal-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px}
+.signal-card{width:100%;min-width:0}
+@media(max-width:850px){.app-shell{padding-top:8px}.topbar{position:relative;top:auto;margin-top:0;padding-top:14px;padding-bottom:14px;gap:10px}.top-status{max-width:60%;flex-wrap:wrap;justify-content:flex-start}.clock-badge{white-space:normal;overflow-wrap:anywhere}.brand-title{font-size:16px}.hero{margin-top:8px}}
