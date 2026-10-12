@@ -2,6 +2,7 @@ package com.ati.toobit
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
@@ -9,6 +10,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.WindowCompat
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
@@ -22,6 +24,10 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        // Keep WebView content below the Android status bar on modern Android versions.
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        window.statusBarColor = Color.rgb(3, 16, 32)
+        window.navigationBarColor = Color.rgb(3, 16, 32)
         web = WebView(this)
         web.settings.javaScriptEnabled = true
         web.settings.domStorageEnabled = true
