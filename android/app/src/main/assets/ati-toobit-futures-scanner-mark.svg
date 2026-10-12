@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<title>Ati Toobit Futures Scanner</title>
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a6"/><stop offset=".45" stop-color="#f5b82e"/><stop offset="1" stop-color="#a9670a"/></linearGradient>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c2e50"/><stop offset="1" stop-color="#020a18"/></linearGradient>
+ <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2f5fb"/><stop offset="1" stop-color="#8b9db5"/></linearGradient>
+</defs>
+<circle cx="64" cy="64" r="61" fill="#020914" stroke="url(#gold)" stroke-width="5"/>
+<circle cx="64" cy="64" r="53" fill="url(#bg)" stroke="#1c5a88" stroke-width="1.5"/>
+<path d="M19 72 L19 58 L27 58 L27 47 L35 47 L35 37 L43 37" fill="none" stroke="#00dfad" stroke-width="3" stroke-linecap="round"/>
+<path d="M20 72 L45 45" fill="none" stroke="#00dfad" stroke-width="3" stroke-linecap="round"/>
+<path d="M88 27h21v23H88z" fill="#09213a" stroke="#1672c8" stroke-width="1.5" rx="4"/>
+<path d="M94 34l-5 4 5 4m8-8 5 4-5 4" fill="none" stroke="#4ccfff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="42" cy="35" rx="13" ry="19" fill="url(#fur)" stroke="#172c45" stroke-width="3"/>
+<ellipse cx="83" cy="35" rx="13" ry="19" fill="url(#fur)" stroke="#172c45" stroke-width="3"/>
+<ellipse cx="42" cy="35" rx="7" ry="12" fill="#f7a1a5"/>
+<ellipse cx="83" cy="35" rx="7" ry="12" fill="#f7a1a5"/>
+<path d="M30 61 C29 43 42 36 63 37 C85 36 98 48 96 66 C94 84 81 91 63 91 C44 91 31 80 30 61Z" fill="url(#fur)" stroke="#243850" stroke-width="2.5"/>
+<ellipse cx="49" cy="59" rx="12" ry="10" fill="#fff" stroke="#152a42" stroke-width="3"/>
+<ellipse cx="77" cy="59" rx="12" ry="10" fill="#fff" stroke="#152a42" stroke-width="3"/>
+<ellipse cx="51" cy="60" rx="5" ry="7" fill="#09182b"/><ellipse cx="75" cy="60" rx="5" ry="7" fill="#09182b"/>
+<circle cx="52" cy="57" r="2" fill="#fff"/><circle cx="76" cy="57" r="2" fill="#fff"/>
+<path d="M37 48 Q50 41 61 49 M65 49 Q78 41 90 48 M61 51h5" fill="none" stroke="#0a1424" stroke-width="4" stroke-linecap="round"/>
+<path d="M59 70 Q64 65 69 70 Q65 77 61 73Z" fill="#f28a94" stroke="#a95562" stroke-width="1.2"/>
+<path d="M55 79 Q64 84 73 78" fill="none" stroke="#25334a" stroke-width="2" stroke-linecap="round"/>
+<path d="M40 88 Q63 81 86 89 L95 108 H32Z" fill="#061326" stroke="url(#gold)" stroke-width="2"/>
+<path d="M49 96l-6 5 6 5m9-10-6 5 6 5m8-10-6 5 6 5" fill="none" stroke="#00d9f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="25" cy="89" r="10" fill="#f2b62d" stroke="#ffe49a" stroke-width="2"/><path d="M27 83v12m4-9c0-3-10-4-10 0s10 1 10 5-10 3-10 0" fill="none" stroke="#7a4b00" stroke-width="1.6"/>
+</svg>
