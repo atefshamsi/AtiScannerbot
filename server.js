@@ -11,6 +11,7 @@ const PINS_FILE = path.join(DATA_DIR, 'pins.json');
 const FAVORITES_FILE = path.join(DATA_DIR, 'favorites.json');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 const PORT = Number(process.env.PORT || 4173);
+const BOT_MODE = process.env.BOT_MODE === 'true';
 const API_BASE = process.env.TOOBIT_API_BASE || 'https://api.toobit.com';
 const MAX_CARDS = 5;
 const SIGNAL_TTL_MS = 30_000;
@@ -428,7 +429,7 @@ function applyCategoryFilters(contracts, tickerMap, settings) {
 async function scanLoop() {
   if (state.scanPromise) return state.scanPromise;
   state.scanPromise = (async () => {
-    while (state.running && state.activeTab && !state.scanAbort) {
+    while (state.running && (state.activeTab || BOT_MODE) && !state.scanAbort) {
       state.statusText = 'دریافت فهرست قراردادهای Futures…';
       try {
         const info = await getExchangeInfo();
@@ -455,12 +456,12 @@ async function scanLoop() {
           ? [contracts.filter(c => favoriteSet.has(c.symbol)), contracts.filter(c => !favoriteSet.has(c.symbol))].filter(group => group.length)
           : [contracts];
         for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
-          if (!state.running || !state.activeTab || state.scanAbort) break;
+          if (!state.running || (!state.activeTab && !BOT_MODE) || state.scanAbort) break;
           const group = groups[groupIndex];
           if (state.settings.scanMode === 'priority') state.statusText = groupIndex === 0 ? `اولویت اسکن: Favorites (${group.length} ارز)` : `Favorites تمام شد؛ ادامه اسکن بازار (${group.length} قرارداد باقی‌مانده)`;
           let next = 0;
           const worker = async () => {
-            while (state.running && state.activeTab && !state.scanAbort) {
+            while (state.running && (state.activeTab || BOT_MODE) && !state.scanAbort) {
               const idx = next++;
               if (idx >= group.length) return;
               await scanContract(group[idx], tickerMap);
@@ -470,7 +471,7 @@ async function scanLoop() {
           await Promise.all(Array.from({ length: Math.min(3, group.length) }, worker));
         }
         state.qualifiedCount = new Set([...state.signals, ...state.pins].map(s => s.id)).size;
-        if (!state.running || !state.activeTab || state.scanAbort) break;
+        if (!state.running || (!state.activeTab && !BOT_MODE) || state.scanAbort) break;
         state.statusText = `دور ${state.round} کامل شد؛ شروع دور بعدی`;
         await sleep(1500);
       } catch (error) {
@@ -490,7 +491,7 @@ function publicState() {
     .sort((a,b) => (b.pinned === a.pinned ? b.score-a.score : (b.pinned ? 1 : -1)))
     .slice(0, MAX_CARDS);
   return {
-    running: state.running && state.activeTab,
+    running: state.running && (state.activeTab || BOT_MODE),
     capital: state.capital,
     leverage: state.leverage,
     settings: state.settings,
@@ -644,13 +645,18 @@ const server = http.createServer(async (req, res) => {
 });
 
 setInterval(() => {
-  if (state.activeTab && now() - state.lastHeartbeat > 30_000) {
+  if (!BOT_MODE && state.activeTab && now() - state.lastHeartbeat > 30_000) {
     state.activeTab = false; state.running = false; state.scanAbort = true; state.statusText = 'برنامه در مرورگر فعال نیست؛ اسکن متوقف شد';
   }
   expireSignals();
 }, 2000).unref();
 
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Toobit Futures Scanner is ready: http://127.0.0.1:${PORT}`);
+server.listen(PORT, process.env.HOST || (process.env.RENDER ? '0.0.0.0' : '127.0.0.1'), () => {
+  console.log(`Toobit Futures Scanner is ready on port ${PORT}`);
   console.log('This app only analyzes public market data. It never places orders.');
+  if (process.env.TELEGRAM_BOT_TOKEN) {
+    require('./telegram').start({ port: PORT, token: process.env.TELEGRAM_BOT_TOKEN, allowedUserId: process.env.TELEGRAM_ALLOWED_USER_ID || '', botMode: BOT_MODE });
+  } else if (BOT_MODE) {
+    console.error('BOT_MODE is enabled but TELEGRAM_BOT_TOKEN is missing.');
+  }
 });
