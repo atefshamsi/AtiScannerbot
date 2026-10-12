@@ -78,19 +78,62 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
 @media(max-width:1250px){.controls-panel .hero-actions{grid-template-columns:1fr 1fr}.controls-panel .settings-panel{grid-column:1/-1}.hero{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app-shell{padding:0 12px 14px}.topbar{margin:0 -12px 14px;padding:12px 14px}.hero{grid-template-columns:1fr;padding:16px}.hero-copy{grid-column:1;grid-row:1}.hero-market{grid-column:1;grid-row:2}.controls-panel{padding:13px;border-top:1px solid #10365b;border-radius:14px;margin-top:12px}.controls-panel .hero-actions{grid-template-columns:1fr}.controls-panel .settings-panel{grid-column:auto}.controls-panel .capital-fields{grid-template-columns:1fr 1fr}.controls-panel .button-row{flex-direction:row}.controls-panel .button-row .btn{flex:1}.stats-grid{display:grid}}
 
-/* Android app: phone-first cards and a header clear of system UI */
-.signal-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px}
-.signal-card{width:100%;min-width:0}
-@media(max-width:850px){.app-shell{padding-top:8px}.topbar{position:relative;top:auto;margin-top:0;padding-top:14px;padding-bottom:14px;gap:10px}.top-status{max-width:60%;flex-wrap:wrap;justify-content:flex-start}.clock-badge{white-space:normal;overflow-wrap:anywhere}.brand-title{font-size:16px}.hero{margin-top:8px}}
 
-
-/* v0.9.3 Android polish: sticky inset header, full-width recheck action, exact brand */
-@media(max-width:850px){
-  .topbar{position:sticky!important;top:0!important;z-index:100!important;margin:0 -12px 14px!important;padding:22px 14px 15px!important;min-height:82px;background:rgba(4,18,35,.98)!important;border-bottom:1px solid #16436c;backdrop-filter:blur(14px)}
-  .app-shell{padding-top:0!important}
-  .signal-card-foot{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:10px 12px;min-width:0}
-  .signal-card-foot .pin-control{flex:1 1 auto;min-width:0}
-  .signal-card-foot .expire-text{flex:0 1 auto}
-  .signal-card-foot .btn-recheck{display:block;box-sizing:border-box;flex:1 1 100%;width:100%;min-width:0;max-width:100%;margin:2px 0 0;padding:10px 8px;white-space:normal;overflow-wrap:anywhere;text-align:center;line-height:1.6}
+/* v0.9.5 — compact mobile signal cards and aligned branded header */
+.brand{align-items:center;min-width:0}
+.brand-mark{flex:0 0 38px;padding:0;background:transparent;border:0;overflow:visible}
+.brand-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}
+.topbar,.top-status{align-items:center}
+.signal-card{background:linear-gradient(180deg,#0b2340,#071a2e)}
+@media(max-width:520px){
+  .topbar{align-items:center;gap:8px;padding:9px 10px;min-height:58px}
+  .brand{gap:7px;min-width:0}
+  .brand-mark{width:31px;height:31px;flex-basis:31px}
+  .brand-title{font-size:11px;line-height:1.25;white-space:nowrap;letter-spacing:0}
+  .top-status{margin:0;padding:5px 6px;gap:5px;font-size:9px;white-space:nowrap;flex-shrink:0}
+  .top-status .clock-badge{display:none}
+  .top-status .divider-v{display:none}
+  .signal-card{min-height:0;border-radius:12px}
+  .signal-card-head{padding:8px 9px 7px}
+  .symbol-name{font-size:12px}
+  .symbol-actions{gap:4px}
+  .favorite-btn{width:24px;height:23px;font-size:16px}
+  .score-badge{font-size:9px;padding:2px 5px}
+  .signal-meta{margin-top:5px}
+  .side-badge{font-size:9px;padding:3px 5px}
+  .signal-time{font-size:8px}
+  .status-row{margin-top:5px;gap:4px}
+  .status-pill{font-size:9px;padding:3px 5px}
+  .check-time{font-size:8px}
+  .signal-body{padding:7px 9px;gap:5px!important}
+  .order-type{font-size:9px}
+  .order-type strong{font-size:9px}
+  .price-main{padding:5px 7px;border-radius:7px}
+  .price-main span{font-size:9px}
+  .price-main strong{font-size:15px;margin-top:1px}
+  .levels{gap:4px}
+  .level{padding:4px 6px;border-radius:6px}
+  .level span{font-size:8px;line-height:1.35}
+  .level strong{font-size:10px;margin-top:2px}
+  .level small{font-size:7px;margin-top:2px}
+  .risk-box{padding-top:5px;gap:4px}
+  .risk-box div span{font-size:8px}
+  .risk-box div strong{font-size:9px;margin-top:1px}
+  .tf-row{gap:3px}
+  .tf-chip{padding:3px 1px;font-size:8px}
+  .tf-chip b{font-size:8px;margin-top:1px}
+  .current-price-row{padding:5px 6px;gap:5px}
+  .current-price-row span{font-size:8px}
+  .current-price-row strong{font-size:9px}
+  .signal-warning{font-size:9px;line-height:1.5;padding:5px 6px}
+  .signal-reasons{font-size:8px;line-height:1.55}
+  .change-history{padding-top:5px;gap:4px}
+  .history-title{font-size:9px}
+  .history-item{padding:4px 5px;gap:2px}
+  .history-item span,.history-item small{font-size:8px;line-height:1.5}
+  .signal-card-foot{padding:7px 9px;gap:6px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  .pin-control{gap:4px;font-size:9px;white-space:nowrap;min-width:0}
+  .pin-control input{width:12px;height:12px;flex:0 0 12px}
+  .expire-text{display:none}
+  .btn-recheck{flex:0 1 auto;width:auto;min-width:0;padding:5px 7px;margin:0;font-size:9px;white-space:nowrap;border-radius:7px}
 }
-@media(max-width:520px){.brand-title{font-size:14px!important;letter-spacing:0!important;white-space:normal;line-height:1.5}.topbar{padding-top:24px!important}}
