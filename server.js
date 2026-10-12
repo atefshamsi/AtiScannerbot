@@ -659,4 +659,13 @@ server.listen(PORT, process.env.HOST || (process.env.RENDER ? '0.0.0.0' : '127.0
   } else if (BOT_MODE) {
     console.error('BOT_MODE is enabled but TELEGRAM_BOT_TOKEN is missing.');
   }
+  if (BOT_MODE) {
+    state.running = true;
+    state.activeTab = true;
+    state.scanAbort = false;
+    state.lastHeartbeat = now();
+    state.startedAt = now();
+    state.statusText = 'اسکن خودکار سرور شروع شد';
+    scanLoop();
+  }
 });
