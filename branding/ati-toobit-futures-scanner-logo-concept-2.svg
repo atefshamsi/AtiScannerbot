@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+ <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#243b59"/><stop offset="1" stop-color="#081626"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#fff0b5"/><stop offset=".45" stop-color="#d8a94d"/><stop offset="1" stop-color="#8d5b18"/></linearGradient>
+ <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".5" stop-color="#d8e2ec"/><stop offset="1" stop-color="#8799ae"/></linearGradient>
+ <filter id="drop" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10"/><feOffset dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".45"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="34" y="34" width="956" height="956" rx="220" fill="#050c16"/>
+<rect x="49" y="49" width="926" height="926" rx="205" fill="url(#navy)" stroke="url(#gold)" stroke-width="16"/>
+<rect x="77" y="77" width="870" height="870" rx="177" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="3"/>
+<!-- chart rising behind mascot -->
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M615 353 L700 280 L766 308 L866 192" stroke="#4ad6ff" stroke-width="15"/>
+ <path d="M824 192h42v42" stroke="#4ad6ff" stroke-width="15"/>
+ <g stroke="#30d6a0" stroke-width="9"><path d="M675 377v80"/><path d="M725 340v105"/><path d="M775 318v72"/></g>
+ <g fill="#30d6a0" stroke="none"><rect x="660" y="398" width="30" height="39" rx="5"/><rect x="710" y="365" width="30" height="48" rx="5"/></g>
+ <g stroke="#ff6577" stroke-width="9"><path d="M820 282v97"/><path d="M866 231v88"/></g>
+ <g fill="#ff6577" stroke="none"><rect x="805" y="305" width="30" height="44" rx="5"/><rect x="851" y="250" width="30" height="42" rx="5"/></g>
+</g>
+<!-- bold mouse mascot, more emblem than childish -->
+<g filter="url(#drop)" stroke="#07111e" stroke-width="22" stroke-linejoin="round">
+ <circle cx="348" cy="292" r="113" fill="url(#silver)"/><circle cx="348" cy="292" r="70" fill="#b97b69" stroke="#f4d1a2" stroke-width="8"/>
+ <circle cx="567" cy="292" r="113" fill="url(#silver)"/><circle cx="567" cy="292" r="70" fill="#b97b69" stroke="#f4d1a2" stroke-width="8"/>
+ <path d="M284 399 Q300 319 458 319 Q614 319 631 415 Q650 534 550 592 Q460 641 370 592 Q271 538 284 399Z" fill="url(#silver)"/>
+</g>
+<!-- glasses + confident expression -->
+<g stroke="#0b1b2c" stroke-width="17" fill="none" stroke-linejoin="round">
+ <rect x="324" y="405" width="111" height="83" rx="22"/><rect x="480" y="405" width="111" height="83" rx="22"/><path d="M435 431 Q458 414 480 431"/>
+</g>
+<g fill="#fff"><ellipse cx="379" cy="443" rx="23" ry="27"/><ellipse cx="536" cy="443" rx="23" ry="27"/></g>
+<g fill="#0b1b2c"><ellipse cx="387" cy="447" rx="11" ry="19"/><ellipse cx="529" cy="447" rx="11" ry="19"/></g>
+<path d="M432 510 Q459 528 486 510" fill="none" stroke="#26384c" stroke-width="9" stroke-linecap="round"/>
+<ellipse cx="459" cy="492" rx="19" ry="12" fill="#c96c73" stroke="#713746" stroke-width="5"/>
+<!-- code shield -->
+<g filter="url(#drop)">
+ <path d="M390 555 L459 533 L528 555 L521 618 Q459 662 397 618Z" fill="#0b2038" stroke="url(#gold)" stroke-width="8"/>
+ <path d="M433 573l-19 17 19 17 M485 573l19 17-19 17 M475 567l-30 48" fill="none" stroke="#4bd7ff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="512" y="730" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="900" letter-spacing="1" fill="url(#gold)" stroke="#07111e" stroke-width="5" paint-order="stroke">ATI TOOBIT</text>
+<path d="M205 759H819" stroke="url(#gold)" stroke-width="7" stroke-linecap="round"/>
+<text x="512" y="817" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800" letter-spacing="3" fill="#f4f7fb">FUTURES SCANNER</text>
+<text x="512" y="873" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700" letter-spacing="5" fill="#8bdfff">TRADE SMART • CODE BOLD</text>
+</svg>
