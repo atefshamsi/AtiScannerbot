@@ -3,12 +3,12 @@ package com.ati.toobit
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
+import android.util.Base64
 import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.util.Base64
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
@@ -25,7 +25,6 @@ class MainActivity : Activity() {
         web = WebView(this)
         web.settings.javaScriptEnabled = true
         web.settings.domStorageEnabled = true
-        web.settings.allowFileAccess = false
         web.settings.allowContentAccess = false
         web.webViewClient = WebViewClient()
         web.webChromeClient = WebChromeClient()
