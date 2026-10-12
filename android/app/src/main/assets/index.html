@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>Ati Toobit Futures Scanner v0.9.4</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">✺</div>
+        <div><div class="brand-title">Ati Toobit Futures Scanner</div><div class="brand-subtitle">اسکنر هوشمند Ati · فقط تحلیل و پایش</div></div>
+      </div>
+      <div class="top-status"><span id="connectionDot" class="dot"></span><span id="connectionText">آماده اتصال</span><span class="divider-v"></span><span id="headerClock" class="tiny clock-badge">--:-- · --/--/----</span></div>
+    </header>
+
+    <main>
+      <section class="hero panel">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> تحلیل بازار بدون اجرای خودکار معامله</div>
+          <h1>اسکنر هوشمند <span>Futures</span></h1>
+          <p>تحلیل بازار Futures با ایچیموکو، MACD، پرایس‌اکشن و روند چندتایم‌فریمی؛ فقط تحلیل و پایش، تصمیم نهایی با توست.</p>
+        </div>
+        <div class="hero-market">
+          <div class="market-widget-head"><div><span class="section-kicker">LIVE MARKET SNAPSHOT</span><h2>نبض بازار</h2></div><span class="live-tag"><i></i> داده پس از بررسی</span></div>
+          <div class="btc-feature"><div><span class="muted-label">حرکت BTC در ۲۴ ساعت</span><strong id="btcChange">—</strong><small id="btcStatus">برای دریافت آمار، «بررسی سریع بازار» را بزن</small></div><div class="btc-icon">₿</div></div>
+          <div class="sparkline-wrap"><svg viewBox="0 0 360 74" preserveAspectRatio="none" role="img" aria-label="نمودار تزئینی روند بازار"><defs><linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#49d7c6" stop-opacity=".25"/><stop offset="1" stop-color="#49d7c6" stop-opacity="0"/></linearGradient></defs><path d="M0 55 C18 50 23 57 40 44 S65 48 81 36 S105 47 126 29 S151 42 169 32 S195 38 212 22 S238 30 254 17 S280 33 298 20 S330 27 360 7 L360 74 L0 74 Z" fill="url(#sparkFill)"/><path d="M0 55 C18 50 23 57 40 44 S65 48 81 36 S105 47 126 29 S151 42 169 32 S195 38 212 22 S238 30 254 17 S280 33 298 20 S330 27 360 7" fill="none" stroke="#49d7c6" stroke-width="2.5" vector-effect="non-scaling-stroke"/></svg></div>
+          <div class="market-mini-stats"><div><span>حجم معاملات ۲۴ساعته</span><strong id="marketVolume">—</strong></div><div><span>وضعیت کلی</span><strong id="marketMoodShort">هنوز بررسی نشده</strong></div><div><span>قرارداد قابل بررسی</span><strong id="heroContracts">—</strong></div></div>
+          <button id="marketReviewBtn" class="btn btn-secondary market-review-btn">بررسی سریع بازار</button>
+          <div id="marketReview" class="market-review hidden" aria-live="polite"></div>
+        </div>
+
+      </section>
+
+      <section class="controls-panel panel">
+        <div class="controls-heading"><div><span class="section-kicker">SCAN SETTINGS</span><h2>تنظیمات اسکن</h2></div><span>تنظیمات را انتخاب کن و سپس اسکن را شروع کن</span></div>
+        <div class="hero-actions">
+          <div class="capital-fields">
+            <div><label class="field-label" for="capitalInput">سرمایه اختصاصی هر معامله (USDT)</label><div class="capital-row"><input id="capitalInput" type="number" min="1" step="any" value="100" inputmode="decimal"><span class="currency">USDT</span></div></div>
+            <div><label class="field-label" for="leverageInput">اهرم محاسباتی</label><div class="capital-row"><input id="leverageInput" type="number" min="1" step="1" value="10" inputmode="numeric"><span class="currency">x</span></div></div>
+          </div>
+          <div class="settings-panel">
+            <label class="field-label" for="horizonMode">هدف زمانی بررسی</label>
+            <select id="horizonMode"><option value="fast">سریع — بررسی ورود به سود در ۱۰ دقیقهٔ اول</option><option value="normal">معمولی — بررسی در ۱ تا ۲ ساعت</option></select>
+            <div class="filter-panel">
+              <div class="filter-panel-head"><div><strong>فیلتر ۱ · نوع و کاربرد ارز</strong><small>گروه کاربردی پروژه</small></div><label class="toggle"><input id="useCaseFilterEnabled" type="checkbox"><span>روشن</span></label></div>
+              <div id="useCaseFilterOptions" class="filter-options hidden">
+                <label><input type="checkbox" name="useCaseGroup" value="payment"> پرداخت و ذخیرهٔ ارزش</label>
+                <label><input type="checkbox" name="useCaseGroup" value="network"> شبکه‌های اصلی و پلتفرم‌ها</label>
+                <label><input type="checkbox" name="useCaseGroup" value="infra"> امور مالی و زیرساخت کریپتو</label>
+                <label><input type="checkbox" name="useCaseGroup" value="stable"> استیبل‌کوین‌ها و دارایی‌های توکنیزه‌شده</label>
+                <label><input type="checkbox" name="useCaseGroup" value="meme"> میم‌کوین‌ها، بازی و سرگرمی</label>
+              </div>
+              <div class="filter-panel-head"><div><strong>فیلتر ۲ · ویژگی‌های بازار</strong><small>انتخاب چند گزینه مجاز است</small></div><label class="toggle"><input id="marketFilterEnabled" type="checkbox"><span>روشن</span></label></div>
+              <div id="marketFilterOptions" class="filter-options hidden">
+                <label><input type="checkbox" name="marketGroup" value="large"> ارزهای بزرگ</label>
+                <label><input type="checkbox" name="marketGroup" value="medium"> ارزهای متوسط</label>
+                <label><input type="checkbox" name="marketGroup" value="volatile"> ارزهای پرنوسان</label>
+                <label><input type="checkbox" name="marketGroup" value="btc"> هم‌جهت با حرکت BTC</label>
+                <small class="filter-note">هم‌جهتی با BTC فعلاً با تغییر ۲۴ساعته سنجیده می‌شود؛ این معیار همبستگی آماری لحظه‌ای نیست. گروه‌های بزرگ/متوسط نیز فهرست اولیه‌اند و هنوز بر پایهٔ دادهٔ زندهٔ ارزش بازار رتبه‌بندی نمی‌شوند.</small>
+              </div>
+            </div>
+            <label class="field-label" for="scanMode" style="margin-top:12px">حالت انتخاب ارزها</label>
+            <select id="scanMode"><option value="priority">اولویت با Favorites، سپس تمام بازار</option><option value="favorites">فقط Favorites</option><option value="all">تمام بازار بدون اولویت</option></select>
+            <div class="field-label order-label">انواع سفارش مجاز</div>
+            <div class="order-options"><label><input type="checkbox" name="orderType" value="Market" checked> Market</label><label><input type="checkbox" name="orderType" value="Limit" checked> Limit</label><label><input type="checkbox" name="orderType" value="Trigger" checked> Trigger</label></div>
+            <div class="micro-note">TP1: سود هدف ۴٪ و TP2: سود هدف ۱۶٪ سرمایه اختصاصی؛ کارمزد در محاسبه لحاظ نمی‌شود.</div>
+          </div>
+          <div class="button-row"><button id="startBtn" class="btn btn-primary"><span>▶</span> شروع اسکن</button><button id="stopBtn" class="btn btn-ghost" disabled>توقف</button></div>
+          <div class="micro-note">ریسک هدف حد ضرر: <strong>۰٫۵٪</strong> سرمایه · اهرم فقط برای محاسبه است و در Toobit تغییر نمی‌کند · بدون سفارش خودکار</div>
+        </div>
+      </section>
+
+      <section class="notice-row">
+        <div class="notice"><span class="notice-icon">i</span><div><strong>حالت آزمایشی فنی</strong><span>تا دریافت داده زنده و بررسی خروجی‌ها، این نسخه را مبنای معامله واقعی قرار نده.</span></div></div>
+        <div class="notice notice-warn"><span class="notice-icon">!</span><div><strong>ریسک واقعی تضمین‌شده نیست</strong><span>کارمزد، لغزش قیمت، اجرای سفارش و اهرم انتخابی تو می‌توانند زیان واقعی را تغییر دهند.</span></div></div>
+      </section>
+
+      <section class="stats-grid" aria-label="وضعیت اسکن">
+        <div class="stat-card"><span class="stat-label">قراردادهای قابل‌معامله</span><strong id="totalContracts">—</strong><span class="stat-foot">از اطلاعات رسمی صرافی</span></div>
+        <div class="stat-card"><span class="stat-label">بررسی‌شده در این دور</span><strong id="scannedContracts">۰</strong><span class="stat-foot" id="roundLabel">هنوز شروع نشده</span></div>
+        <div class="stat-card"><span class="stat-label">فرصت‌های واجد شرایط</span><strong id="qualifiedCount">۰</strong><span class="stat-foot">بر اساس فیلترهای فعلی</span></div>
+        <div class="stat-card"><span class="stat-label">آخرین داده معتبر</span><strong id="lastDataAt" class="stat-date">دریافت نشده</strong><span class="stat-foot" id="dataFreshness">منتظر اتصال</span></div>
+      </section>
+
+      <section class="scan-progress panel">
+        <div class="progress-head"><div><span class="section-kicker">MARKET SCAN</span><h2 id="statusTitle">آماده شروع اسکن</h2></div><div class="progress-meta"><span id="currentSymbol">—</span><span id="progressPercent">۰٪</span></div></div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="progress-foot"><span id="statusMessage">با زدن دکمه شروع، اتصال به API عمومی Toobit بررسی می‌شود.</span><span>حداقل امتیاز: ۷۲ از ۱۰۰</span></div>
+        <div id="errorBanner" class="error-banner hidden"></div>
+      </section>
+
+      <section class="signals-section">
+        <div class="section-head"><div><span class="section-kicker">TOP OPPORTUNITIES</span><h2>فرصت‌های برتر بازار <span class="count-pill" id="cardCount">۰ / ۵</span></h2><p>توضیحات کوتاه و ساده؛ کارت‌های پین‌شده باقی می‌مانند.</p></div><button id="searchAgainBtn" class="btn btn-secondary" disabled>↻ جستجوی مجدد</button></div>
+        <div id="signalGrid" class="signal-grid"><div class="empty-state"><div class="empty-orbit">⌁</div><h3>هنوز سیگنالی دریافت نشده</h3><p>حالت اسکن و سرمایه را انتخاب کن و «شروع اسکن» را بزن. اگر شرایط مناسب نباشد، ممکن است سیگنالی نمایش داده نشود.</p></div></div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="panel info-panel"><div class="panel-title"><span class="title-icon">◈</span><div><h3>قواعد اسکن</h3><p>فیلترهای اولیه این نسخه</p></div></div><ul class="rules-list"><li><span class="rule-check">✓</span> قراردادهای Futures با وضعیت TRADING</li><li><span class="rule-check">✓</span> روند چندتایم‌فریمی + ایچیموکو + MACD + پرایس‌اکشن</li><li><span class="rule-check">✓</span> حد ضرر ساختاری با تعدیل نوسان (ATR)</li><li><span class="rule-check">✓</span> حجم تخمینی بر اساس ریسک هدف ۰٫۵٪</li><li><span class="rule-check">✓</span> هیچ سفارش واقعی ارسال نمی‌شود</li></ul></div>
+        <div class="panel info-panel"><div class="panel-title"><span class="title-icon">◷</span><div><h3>راهنمای تصمیم‌گیری</h3><p>قبل از هر ورود</p></div></div><div class="decision-list"><div><strong>۶۰ ثانیه</strong><span>فرصت اولیه برای بررسی؛ نه تضمین ماندگاری قیمت</span></div><div><strong>داده تازه</strong><span>در صورت قطع اتصال یا داده قدیمی، سیگنال را معتبر فرض نکن</span></div><div><strong>سطوح متغیر</strong><span>قبل از ورود، Entry و SL و اهداف را دوباره بررسی کن</span></div></div></div>
+      </section>
+    </main>
+    <footer><span>Ati Toobit Futures Scanner · v0.9.4</span><span>ساخته‌شده برای تحلیل؛ تصمیم و اجرای معامله با کاربر است.</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
