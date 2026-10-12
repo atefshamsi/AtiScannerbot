@@ -13,11 +13,32 @@ function start({port, token, allowedUserId = '', botMode = false}) {
   const keyboard = {keyboard:[[{text:'▶️ شروع اسکن'},{text:'⏹ توقف اسکن'}],[{text:'📊 وضعیت'},{text:'📡 سیگنال‌ها'}],[{text:'⭐ علاقه‌مندی‌ها'},{text:'⚙️ راهنما'}]],resize_keyboard:true};
   const reply = (id, text) => api('sendMessage',{chat_id:id,text,parse_mode:'HTML',disable_web_page_preview:true,reply_markup:keyboard});
   const allowed = m => !allowedUserId || String(m.from?.id) === String(allowedUserId);
+  let notifyChatId = null;
+  const lastSent = new Map();
+  async function notifyChanges() {
+    if (!notifyChatId) return;
+    try {
+      const s = await local('/api/state');
+      for (const c of (s.cards || [])) {
+        const signature = JSON.stringify([c.status,c.score,c.entry,c.sl,c.tp1,c.tp2,c.warning,c.pinned]);
+        const previous = lastSent.get(c.id);
+        if (previous === undefined) {
+          if (c.pinned || c.timestamp || c.firstSeen) await reply(notifyChatId, '🆕 <b>سیگنال جدید</b>\n' + esc(c.symbol) + ' · ' + c.side + '\nامتیاز: ' + fmt(c.score) + '/100\nEntry: ' + fmt(c.entry) + '\nSL: ' + fmt(c.sl) + '\nTP1: ' + fmt(c.tp1) + '\nTP2: ' + fmt(c.tp2) + (c.warning ? '\n⚠️ ' + esc(c.warning) : '') + '\nبرای جزئیات /signals را بزن.');
+        } else if (previous !== signature) {
+          await reply(notifyChatId, '🔔 <b>به‌روزرسانی سیگنال</b>\n' + esc(c.symbol) + ' · ' + c.side + '\nوضعیت: ' + esc(c.status || '—') + '\nامتیاز: ' + fmt(c.score) + '/100\nEntry: ' + fmt(c.entry) + '\nSL: ' + fmt(c.sl) + '\nTP1: ' + fmt(c.tp1) + '\nTP2: ' + fmt(c.tp2) + (c.warning ? '\n⚠️ ' + esc(c.warning) : ''));
+        }
+        lastSent.set(c.id, signature);
+      }
+      for (const id of [...lastSent.keys()]) if (!(s.cards || []).some(c => c.id === id)) lastSent.delete(id);
+    } catch (e) { console.error('Telegram notifications failed:', e.message); }
+  }
   async function handle(m) {
     const id=m.chat.id, raw=String(m.text||'').trim(), p=raw.split(/\s+/), cmd=p[0].toLowerCase().split('@')[0], a=p.slice(1);
     if (!raw) return;
     if (cmd==='/id') return reply(id,'شناسه کاربری شما: <code>'+m.from.id+'</code>\nاین عدد را در متغیر محرمانه TELEGRAM_ALLOWED_USER_ID ثبت کن و سرویس را دوباره راه‌اندازی کن.');
+    if (!allowedUserId && !['/start','/help'].includes(cmd) && raw!=='⚙️ راهنما') return reply(id,'برای امنیت، ابتدا /id را بزن و شناسه خودت را در متغیر محرمانه TELEGRAM_ALLOWED_USER_ID در میزبانی ثبت کن. سپس سرویس را Restart کن.');
     if (!allowed(m)) return reply(id,'این ربات محدود شده است. برای راهنمای شناسه /id را بزن.');
+    if (allowedUserId) notifyChatId = id;
     if (cmd==='/start'||cmd==='/help'||raw==='⚙️ راهنما') return reply(id,
       '🤖 <b>اسکنر Ati · Toobit Futures</b>\nفقط تحلیل و هشدار؛ هیچ سفارشی ثبت نمی‌کند.\n\n'+
       '<code>/startscan</code> شروع اسکن\n<code>/stop</code> توقف\n<code>/status</code> وضعیت\n<code>/signals</code> سیگنال‌ها\n<code>/capital 100</code> سرمایه USDT\n<code>/leverage 10</code> اهرم محاسباتی\n<code>/scan priority|favorites|all</code> حالت اسکن\n<code>/orders Market,Limit,Trigger</code> فیلتر نوع سفارش\n<code>/horizon fast|normal</code> افق بررسی\n<code>/favorite BTC-USDT</code> افزودن علاقه‌مندی\n<code>/unfavorite BTC-USDT</code> حذف علاقه‌مندی\n<code>/favorites</code> فهرست علاقه‌مندی‌ها\n<code>/pin BTC-USDT LONG</code> پین سیگنال موجود\n<code>/unpin BTC-USDT LONG</code> برداشتن پین\n<code>/recheck BTC-USDT LONG</code> بررسی فوری\n<code>/id</code> شناسه تلگرام');
@@ -88,6 +109,7 @@ function start({port, token, allowedUserId = '', botMode = false}) {
       try {
         const updates=await api('getUpdates',{offset,timeout:20,allowed_updates:['message']}); delay=1000;
         for (const u of updates) { offset=Math.max(offset,u.update_id+1); if (u.message) try { await handle(u.message); } catch(e) { console.error('Telegram command failed:',e.message); try { await reply(u.message.chat.id,'خطا: '+esc(e.message||'عملیات ناموفق')); } catch {} } }
+        await notifyChanges();
       } catch(e) { console.error('Telegram polling failed:',e.message); await sleep(delay); delay=Math.min(15000,Math.round(delay*1.8)); }
     }
   }
