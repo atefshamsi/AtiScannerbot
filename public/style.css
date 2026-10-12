@@ -77,3 +77,63 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
 .btn-primary{background:linear-gradient(120deg,#086bff,#0759ed);color:#fff;box-shadow:none}.btn-secondary{background:#06172b;border-color:#0874d9;color:#dbeaff}.btn{border-radius:10px}.section-kicker{color:#4d9eff}.signal-card{background:linear-gradient(180deg,#071a30,#041326);border-color:#14385c}
 @media(max-width:1250px){.controls-panel .hero-actions{grid-template-columns:1fr 1fr}.controls-panel .settings-panel{grid-column:1/-1}.hero{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app-shell{padding:0 12px 14px}.topbar{margin:0 -12px 14px;padding:12px 14px}.hero{grid-template-columns:1fr;padding:16px}.hero-copy{grid-column:1;grid-row:1}.hero-market{grid-column:1;grid-row:2}.controls-panel{padding:13px;border-top:1px solid #10365b;border-radius:14px;margin-top:12px}.controls-panel .hero-actions{grid-template-columns:1fr}.controls-panel .settings-panel{grid-column:auto}.controls-panel .capital-fields{grid-template-columns:1fr 1fr}.controls-panel .button-row{flex-direction:row}.controls-panel .button-row .btn{flex:1}.stats-grid{display:grid}}
+
+
+/* v0.9.5 — compact mobile signal cards and aligned branded header */
+.brand{align-items:center;min-width:0}
+.brand-mark{flex:0 0 38px;padding:0;background:transparent;border:0;overflow:visible}
+.brand-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}
+.topbar,.top-status{align-items:center}
+.signal-card{background:linear-gradient(180deg,#0b2340,#071a2e)}
+@media(max-width:520px){
+  .topbar{align-items:center;gap:8px;padding:9px 10px;min-height:58px}
+  .brand{gap:7px;min-width:0}
+  .brand-mark{width:31px;height:31px;flex-basis:31px}
+  .brand-title{font-size:11px;line-height:1.25;white-space:nowrap;letter-spacing:0}
+  .top-status{margin:0;padding:5px 6px;gap:5px;font-size:9px;white-space:nowrap;flex-shrink:0}
+  .top-status .clock-badge{display:none}
+  .top-status .divider-v{display:none}
+  .signal-card{min-height:0;border-radius:12px}
+  .signal-card-head{padding:8px 9px 7px}
+  .symbol-name{font-size:12px}
+  .symbol-actions{gap:4px}
+  .favorite-btn{width:24px;height:23px;font-size:16px}
+  .score-badge{font-size:9px;padding:2px 5px}
+  .signal-meta{margin-top:5px}
+  .side-badge{font-size:9px;padding:3px 5px}
+  .signal-time{font-size:8px}
+  .status-row{margin-top:5px;gap:4px}
+  .status-pill{font-size:9px;padding:3px 5px}
+  .check-time{font-size:8px}
+  .signal-body{padding:7px 9px;gap:5px!important}
+  .order-type{font-size:9px}
+  .order-type strong{font-size:9px}
+  .price-main{padding:5px 7px;border-radius:7px}
+  .price-main span{font-size:9px}
+  .price-main strong{font-size:15px;margin-top:1px}
+  .levels{gap:4px}
+  .level{padding:4px 6px;border-radius:6px}
+  .level span{font-size:8px;line-height:1.35}
+  .level strong{font-size:10px;margin-top:2px}
+  .level small{font-size:7px;margin-top:2px}
+  .risk-box{padding-top:5px;gap:4px}
+  .risk-box div span{font-size:8px}
+  .risk-box div strong{font-size:9px;margin-top:1px}
+  .tf-row{gap:3px}
+  .tf-chip{padding:3px 1px;font-size:8px}
+  .tf-chip b{font-size:8px;margin-top:1px}
+  .current-price-row{padding:5px 6px;gap:5px}
+  .current-price-row span{font-size:8px}
+  .current-price-row strong{font-size:9px}
+  .signal-warning{font-size:9px;line-height:1.5;padding:5px 6px}
+  .signal-reasons{font-size:8px;line-height:1.55}
+  .change-history{padding-top:5px;gap:4px}
+  .history-title{font-size:9px}
+  .history-item{padding:4px 5px;gap:2px}
+  .history-item span,.history-item small{font-size:8px;line-height:1.5}
+  .signal-card-foot{padding:7px 9px;gap:6px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  .pin-control{gap:4px;font-size:9px;white-space:nowrap;min-width:0}
+  .pin-control input{width:12px;height:12px;flex:0 0 12px}
+  .expire-text{display:none}
+  .btn-recheck{flex:0 1 auto;width:auto;min-width:0;padding:5px 7px;margin:0;font-size:9px;white-space:nowrap;border-radius:7px}
+}
