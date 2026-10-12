@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0b1020"><title>اسکنر Toobit</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="brand">✺ <span>اسکنر هوشمند Ati</span></div><div class="sub">Toobit Futures · فقط تحلیل، بدون معامله خودکار</div></header>
+<main>
+<section class="panel"><h1>تنظیمات اسکن</h1>
+<div class="field"><label for="capital">سرمایه هر معامله (USDT)</label><input id="capital" type="number" min="1" value="100" inputmode="decimal"></div>
+<div class="field"><label for="leverage">اهرم محاسباتی (فقط برای محاسبه)</label><input id="leverage" type="number" min="1" value="10" inputmode="numeric"></div>
+<div class="field"><label for="mode">حالت اسکن</label><select id="mode"><option value="priority">اولویت Favorites، سپس بازار</option><option value="favorites">فقط Favorites</option><option value="all">تمام بازار</option></select></div>
+<div class="field"><label for="horizon">هدف زمانی بررسی</label><select id="horizon"><option value="fast">سریع — ۱۰ دقیقهٔ اول</option><option value="normal">معمولی — ۱ تا ۲ ساعت</option></select></div>
+<div class="checks"><label><input type="checkbox" name="order" value="Market" checked> Market</label><label><input type="checkbox" name="order" value="Limit" checked> Limit</label><label><input type="checkbox" name="order" value="Trigger" checked> Trigger</label></div>
+<div class="buttons"><button id="start">شروع اسکن</button><button id="stop" class="secondary" disabled>توقف</button></div>
+<div id="status" role="status">آماده برای شروع</div><div class="progress"><div id="bar"></div></div>
+<div class="stats"><div><small>قراردادها</small><strong id="total">—</strong></div><div><small>بررسی‌شده</small><strong id="checked">0</strong></div><div><small>واجد شرایط</small><strong id="qualified">0</strong></div></div>
+<div class="note">ریسک هدف حد ضرر ۰٫۵٪ سرمایه است. TP1 و TP2 بر اساس هدف سود ۴٪ و ۱۶٪ سرمایه محاسبه می‌شوند. کارمزد لحاظ نشده است. نتایج الگوریتمی‌اند و تضمین سود نیستند.</div>
+</section>
+<section><div class="section-head"><h2>سیگنال‌ها</h2><button id="rescan" class="secondary">بررسی دوباره</button></div><div id="cards" class="cards"><div class="empty">هنوز اسکن شروع نشده است.</div></div></section>
+</main>
+<script src="app.js"></script>
+</body></html>
