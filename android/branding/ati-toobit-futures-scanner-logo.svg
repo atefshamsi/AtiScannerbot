@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#172b4d"/><stop offset="1" stop-color="#071326"/></linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#ffffff"/><stop offset=".45" stop-color="#b9c8dd"/><stop offset="1" stop-color="#627997"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#45d7ff"/><stop offset="1" stop-color="#1767ff"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe7a0"/><stop offset="1" stop-color="#c58a25"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="12"/><feOffset dy="12"/><feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="38" y="38" width="948" height="948" rx="210" fill="#030914"/>
+  <rect x="48" y="48" width="928" height="928" rx="200" fill="url(#bg)" stroke="url(#blue)" stroke-width="16"/>
+  <rect x="77" y="77" width="870" height="870" rx="174" fill="none" stroke="#8aa9d6" stroke-opacity=".22" stroke-width="3"/>
+  <!-- chart motif -->
+  <g opacity=".9" stroke-linecap="round">
+    <path d="M650 300 L735 245 L798 267 L870 177" fill="none" stroke="#37d8ff" stroke-width="12"/>
+    <path d="M846 177h24v24" fill="none" stroke="#37d8ff" stroke-width="12"/>
+    <g stroke="#1ee0a1" stroke-width="10"><path d="M665 365v90"/><path d="M710 333v105"/><path d="M755 305v82"/></g>
+    <g fill="#1ee0a1"><rect x="650" y="389" width="30" height="40" rx="5"/><rect x="695" y="354" width="30" height="49" rx="5"/></g>
+    <g stroke="#ff6478" stroke-width="10"><path d="M800 300v100"/><path d="M850 250v90"/></g>
+    <g fill="#ff6478"><rect x="785" y="326" width="30" height="45" rx="5"/><rect x="835" y="270" width="30" height="42" rx="5"/></g>
+  </g>
+  <!-- mouse ears and head -->
+  <g filter="url(#shadow)">
+    <circle cx="345" cy="285" r="120" fill="url(#metal)" stroke="#071326" stroke-width="22"/>
+    <circle cx="345" cy="285" r="77" fill="#d7a5a1" stroke="#f5d3b2" stroke-width="9"/>
+    <circle cx="570" cy="285" r="120" fill="url(#metal)" stroke="#071326" stroke-width="22"/>
+    <circle cx="570" cy="285" r="77" fill="#d7a5a1" stroke="#f5d3b2" stroke-width="9"/>
+    <path d="M294 386 C300 320 352 285 457 285 C566 285 622 340 624 420 C628 524 558 590 460 590 C358 590 286 516 294 386Z" fill="url(#metal)" stroke="#071326" stroke-width="22"/>
+    <path d="M347 463 Q383 435 420 465" fill="none" stroke="#243650" stroke-width="18" stroke-linecap="round"/>
+    <path d="M494 465 Q532 435 569 463" fill="none" stroke="#243650" stroke-width="18" stroke-linecap="round"/>
+    <ellipse cx="389" cy="424" rx="31" ry="39" fill="#fff" stroke="#182944" stroke-width="8"/>
+    <ellipse cx="528" cy="424" rx="31" ry="39" fill="#fff" stroke="#182944" stroke-width="8"/>
+    <ellipse cx="396" cy="428" rx="15" ry="23" fill="#071326"/>
+    <ellipse cx="521" cy="428" rx="15" ry="23" fill="#071326"/>
+    <circle cx="402" cy="418" r="6" fill="#fff"/><circle cx="527" cy="418" r="6" fill="#fff"/>
+    <ellipse cx="459" cy="482" rx="22" ry="15" fill="#e96c75" stroke="#7f3545" stroke-width="5"/>
+    <path d="M433 509 Q459 535 486 508" fill="none" stroke="#28374d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M439 511 Q459 522 478 511" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <!-- glasses -->
+    <g fill="none" stroke="#071326" stroke-width="18"><rect x="333" y="388" width="104" height="83" rx="24"/><rect x="482" y="388" width="104" height="83" rx="24"/><path d="M437 415 Q459 399 482 415"/></g>
+    <path d="M326 396h112 M475 396h111" stroke="#dce9f9" stroke-width="5" opacity=".8"/>
+  </g>
+  <!-- coding badge -->
+  <g filter="url(#shadow)">
+    <rect x="365" y="557" width="190" height="86" rx="25" fill="#081a32" stroke="url(#blue)" stroke-width="8"/>
+    <path d="M420 581l-24 19 24 19 M500 581l24 19-24 19 M475 576l-24 48" fill="none" stroke="#45d7ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- wordmark -->
+  <text x="512" y="728" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="900" text-anchor="middle" fill="url(#gold)" stroke="#071326" stroke-width="5" paint-order="stroke">ATI TOOBIT</text>
+  <path d="M210 758H814" stroke="url(#blue)" stroke-width="8" stroke-linecap="round"/>
+  <text x="512" y="815" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" letter-spacing="3" text-anchor="middle" fill="#f4f7fc">FUTURES SCANNER</text>
+  <text x="512" y="872" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="5" text-anchor="middle" fill="#78cfff">CODE • CHART • DISCIPLINE</text>
+</svg>
