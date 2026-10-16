@@ -11,8 +11,8 @@ android {
         applicationId 'com.ati.toobit'
         minSdk 24
         targetSdk 35
-        versionCode 13
-        versionName '10.3.2'
+        versionCode 14
+        versionName '10.3.3'
     }
 
     compileOptions {
