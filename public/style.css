@@ -307,3 +307,99 @@ footer{color:#9eafc8!important}
   .symbol-actions{gap:3px}
   .symbol-actions .btn-recheck,.pin-control-top{width:27px!important;min-width:27px!important;height:27px!important}
 }
+
+
+/* v-10.0.2 — app-wide readable text and compact signal card layout; visual only */
+:root{
+  --muted:#c6d4e8;
+  --text:#f3f7ff;
+}
+body,.app-shell{color:#f1f6ff!important}
+body .topbar .brand-subtitle,
+body .topbar .top-status,
+body .topbar .tiny,
+body .hero-copy p,
+body .notice div span,
+body .stat-label,
+body .stat-foot,
+body .section-head p,
+body .empty-state p,
+body .field-label,
+body .micro-note,
+body .progress-meta,
+body .progress-foot,
+body .signal-reasons,
+body .controls-heading>span,
+body .muted-label,
+body .market-mini-stats span,
+body .filter-panel-head small,
+body .filter-note,
+body .current-price-row span,
+body .rules-list li,
+body .decision-list span,
+body .panel-title p,
+body .signal-time,
+body .check-time,
+body .expire-text,
+body .tiny,
+body footer,
+body .order-type,
+body .price-main span,
+body .level span,
+body .risk-box div span,
+body .history-item small,
+body .filter-options label,
+body .order-options label,
+body .settings-panel label,
+body .controls-panel label{
+  color:#dce7f6!important;
+}
+body button,body .btn,body .favorite-btn,body .pin-control-top,
+body .btn-ghost,body .btn-secondary,body .btn-recheck{
+  color:#f0f6ff!important;
+}
+body input,body select,body textarea{color:#f3f7ff!important}
+body input::placeholder,body textarea::placeholder{color:#b8c9df!important;opacity:1}
+body .stat-card strong,body .symbol-name,body .price-main strong,
+body .level strong,body .risk-box div strong,body .order-type strong,
+body .history-title,body .history-item,body .decision-list strong,
+body .panel-title h3,body h1,body h2,body h3{color:#f5f8ff}
+body .topbar .brand-title,body .topbar .brand-title span,
+body .topbar .brand-title span.version-label{color:#f3f7ff!important}
+body .topbar .brand-subtitle,body .topbar .top-status,body .topbar .tiny{color:#e0eaf8!important}
+body .notice div span,body .notice-warn div span{color:#e0eaf4!important}
+body .stat-foot,body footer{color:#c4d2e6!important}
+body .progress-meta,body .progress-foot{color:#d7e3f3!important}
+body .signal-time,body .check-time{color:#d4e0f0!important}
+body .score-badge{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  max-width:48%;min-width:0;white-space:normal;overflow-wrap:anywhere;
+  text-align:center;line-height:1.35;padding:4px 7px;font-size:10px;flex:0 1 auto;
+}
+.signal-card-head{min-width:0}
+.symbol-line{direction:ltr;align-items:center;gap:8px}
+.symbol-name{flex:1 1 auto;min-width:0;text-align:left;overflow-wrap:anywhere}
+.symbol-actions{direction:ltr;flex:0 0 auto;justify-content:flex-end;gap:5px}
+.signal-meta{direction:rtl;align-items:center;min-width:0}
+.signal-meta .side-badge{flex:0 0 auto}
+.signal-meta .score-badge{margin-inline-start:auto}
+.signal-issued{margin-top:5px;justify-content:flex-start}
+.signal-issued .signal-time{white-space:normal;overflow-wrap:anywhere}
+.status-row{min-width:0;gap:6px;flex-wrap:wrap}
+.status-pill{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.check-time{min-width:0;overflow-wrap:anywhere}
+.price-main{display:flex!important;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+.price-main span{flex:1 1 auto;min-width:0;white-space:nowrap}
+.price-main strong{flex:0 1 auto;min-width:0;text-align:left;overflow-wrap:anywhere}
+.signal-card,.signal-card *{min-width:0}
+.signal-card .signal-reasons,.signal-card .signal-warning{overflow-wrap:anywhere;word-break:normal}
+@media(max-width:650px){
+  .signal-card-head{padding:11px 10px 9px}
+  .symbol-line{gap:5px}
+  .symbol-actions{gap:3px}
+  .symbol-name{font-size:12px}
+  .score-badge{font-size:9px;padding:3px 5px;max-width:48%}
+  .price-main{gap:7px}
+  .price-main span{font-size:11px}
+  .price-main strong{font-size:12px}
+}
