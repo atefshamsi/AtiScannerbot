@@ -274,3 +274,12 @@ body{background:#f2f5fa}
   .topbar .header-actions .btn{font-size:9px !important;padding:7px 6px !important}
   footer{font-size:9px !important;padding-bottom:calc(40px + env(safe-area-inset-bottom, 0px)) !important}
 }
+
+
+/* v-10.5.2 Android fix: move header content safely below the status bar with extra top clearance */
+@media(max-width:850px){
+  .topbar{padding-top:calc(2px + var(--status-bar-inset,24px) + 12px) !important;}
+}
+@media(max-width:520px){
+  .topbar{padding-top:calc(2px + var(--status-bar-inset,24px) + 12px) !important;}
+}
