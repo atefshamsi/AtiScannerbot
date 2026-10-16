@@ -33,6 +33,9 @@ jobs:
         with:
           gradle-version: '8.9'
 
+      - name: Verify Android version
+        run: grep -q "versionName '10.0.2'" android/app/build.gradle
+
       - name: Build debug APK
         run: gradle -p android assembleDebug
 
