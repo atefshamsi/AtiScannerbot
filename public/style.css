@@ -77,3 +77,86 @@ body{background:radial-gradient(ellipse at 72% 12%,#08284a 0,transparent 38%),li
 .btn-primary{background:linear-gradient(120deg,#086bff,#0759ed);color:#fff;box-shadow:none}.btn-secondary{background:#06172b;border-color:#0874d9;color:#dbeaff}.btn{border-radius:10px}.section-kicker{color:#4d9eff}.signal-card{background:linear-gradient(180deg,#071a30,#041326);border-color:#14385c}
 @media(max-width:1250px){.controls-panel .hero-actions{grid-template-columns:1fr 1fr}.controls-panel .settings-panel{grid-column:1/-1}.hero{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app-shell{padding:0 12px 14px}.topbar{margin:0 -12px 14px;padding:12px 14px}.hero{grid-template-columns:1fr;padding:16px}.hero-copy{grid-column:1;grid-row:1}.hero-market{grid-column:1;grid-row:2}.controls-panel{padding:13px;border-top:1px solid #10365b;border-radius:14px;margin-top:12px}.controls-panel .hero-actions{grid-template-columns:1fr}.controls-panel .settings-panel{grid-column:auto}.controls-panel .capital-fields{grid-template-columns:1fr 1fr}.controls-panel .button-row{flex-direction:row}.controls-panel .button-row .btn{flex:1}.stats-grid{display:grid}}
+
+
+/* v0.9.8 Android — make muted/gray copy clearly readable on phone screens */
+:root{--muted:#ffffff;--text:#ffffff}
+body,.app-shell{color:#ffffff!important}
+body .brand-subtitle,
+body .top-status,
+body .top-status *,
+body .tiny,
+body .hero-copy p,
+body .notice,
+body .notice span,
+body .notice div span,
+body .stat-label,
+body .stat-foot,
+body .section-head p,
+body .empty-state p,
+body .field-label,
+body .micro-note,
+body .progress-meta,
+body .progress-foot,
+body .signal-reasons,
+body .controls-heading>span,
+body .muted-label,
+body .market-mini-stats span,
+body .market-mini-stats>div span,
+body .filter-panel-head small,
+body .filter-note,
+body .current-price-row span,
+body .rules-list li,
+body .decision-list span,
+body .panel-title p,
+body .signal-time,
+body .check-time,
+body .expire-text,
+body footer,
+body .order-type,
+body .price-main span,
+body .level span,
+body .risk-box div span,
+body .history-item small,
+body .filter-options label,
+body .order-options label,
+body .settings-panel label,
+body .controls-panel label,
+body .signal-card p,
+body .signal-card small,
+body .signal-card .muted,
+body .signal-card .secondary-text{
+  color:#ffffff!important;
+}
+body .btn,
+body button,
+body .favorite-btn,
+body .pin-control-top,
+body .btn-ghost,
+body .btn-secondary{
+  color:#ffffff!important;
+}
+body input,body select,body textarea{color:#ffffff!important}
+body input::placeholder,body textarea::placeholder{color:#ffffff!important;opacity:.9}
+body .brand-title,body .brand-title span,body .brand-title span.version-label,
+body h1,body h2,body h3,
+body .stat-card strong,body .symbol-name,body .price-main strong,
+body .level strong,body .risk-box div strong,body .order-type strong,
+body .history-title,body .history-item,body .decision-list strong,
+body .panel-title h3{color:#ffffff!important}
+/* Keep meaning-bearing signal colors and clear action accents intact. */
+body .side-badge.long,body .status-pill.valid,body .level.tp strong,
+body .tf-chip.good b{color:#55efb4!important}
+body .side-badge.short,body .status-pill.invalid,body .level.sl strong,
+body .tf-chip.bad b{color:#ff9baa!important}
+body .status-pill.warning,body .signal-warning,body .notice-warn .notice-icon{color:#ffe09a!important}
+body .score-badge{color:#65f0df!important}
+body .favorite-btn.active{color:#ffdf7c!important}
+@media(max-width:850px){
+  body .hero-copy p,body .notice div span,body .field-label,
+  body .micro-note,body .stat-label,body .stat-foot,
+  body .market-mini-stats span,body .signal-time,body .check-time,
+  body .price-main span,body .level span,body .risk-box div span{
+    color:#ffffff!important;
+  }
+}
