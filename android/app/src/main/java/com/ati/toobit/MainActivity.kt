@@ -28,6 +28,8 @@ class MainActivity : Activity() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         window.statusBarColor = Color.rgb(6, 20, 38)
         window.navigationBarColor = Color.rgb(3, 16, 32)
+        // Use light system icons on the dark status/navigation bars.
+        window.decorView.systemUiVisibility = 0
         web = WebView(this)
         web.settings.javaScriptEnabled = true
         web.settings.domStorageEnabled = true
