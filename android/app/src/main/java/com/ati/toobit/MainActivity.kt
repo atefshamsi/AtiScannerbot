@@ -26,7 +26,7 @@ class MainActivity : Activity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // Keep WebView content below the Android status bar on modern Android versions.
         WindowCompat.setDecorFitsSystemWindows(window, true)
-        window.statusBarColor = Color.rgb(3, 16, 32)
+        window.statusBarColor = Color.rgb(6, 20, 38)
         window.navigationBarColor = Color.rgb(3, 16, 32)
         web = WebView(this)
         web.settings.javaScriptEnabled = true
