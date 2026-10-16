@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - ati-toobit-android-debug-apk-v-10.4.2
+      - ati-toobit-android-debug-apk-v-10.5.2
     paths:
       - 'android/**'
       - '.github/workflows/build-android-apk.yml'
@@ -44,18 +44,18 @@ jobs:
           gradle-version: '8.9'
 
       - name: Verify Android version
-        run: grep -q "versionName '10.4.2'" android/app/build.gradle
+        run: grep -q "versionName '10.5.2'" android/app/build.gradle
 
       - name: Build debug APK
         run: gradle -p android assembleDebug
 
       - name: Rename APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/ati-toobit-android-debug-apk-v-10.4.2.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/ati-toobit-android-debug-apk-v-10.5.2.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ati-toobit-android-debug-apk-v-10.4.2
-          path: android/app/build/outputs/apk/debug/ati-toobit-android-debug-apk-v-10.4.2.apk
+          name: ati-toobit-android-debug-apk-v-10.5.2
+          path: android/app/build/outputs/apk/debug/ati-toobit-android-debug-apk-v-10.5.2.apk
           if-no-files-found: error
           retention-days: 14
