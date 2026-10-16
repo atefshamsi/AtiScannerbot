@@ -206,3 +206,25 @@ body{background:#f2f5fa}
   .signal-card-foot{padding:5px 7px}
   footer{gap:2px;line-height:1.25;padding-top:8px}
 }
+
+
+/* v-10.2.2 Android: compact header and clearer footer */
+@media(max-width:850px){
+  .topbar{gap:3px 8px;padding-bottom:4px}
+  .topbar .brand-mark{width:24px;height:24px;flex-basis:24px;border-radius:7px}
+  .topbar .brand{gap:6px}
+  .topbar .brand-title{font-size:9px;line-height:1.15}
+  .topbar .top-status{font-size:7px;gap:4px;padding:2px 3px}
+  .topbar .header-actions{gap:4px}
+  .topbar .header-actions .btn{padding:4px 2px;font-size:8px;line-height:1.2;border-radius:6px}
+  footer{margin-top:12px;margin-bottom:0;padding:8px 4px calc(36px + var(--navigation-bar-inset,0px));gap:2px;line-height:1.3;text-align:center;color:#aebbd0}
+  footer,footer *{text-align:center;color:#aebbd0}
+}
+@media(max-width:520px){
+  .topbar{gap:2px 6px;padding-left:7px;padding-right:7px;padding-bottom:3px}
+  .topbar .brand-mark{width:22px;height:22px;flex-basis:22px}
+  .topbar .brand-title{font-size:8px}
+  .topbar .top-status{font-size:6.5px;gap:3px}
+  .topbar .header-actions .btn{padding:4px 1px;font-size:7.5px}
+  footer{padding-bottom:calc(36px + var(--navigation-bar-inset,0px));font-size:10px;gap:1px}
+}
