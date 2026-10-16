@@ -157,7 +157,7 @@ body{background:#f3f6fb;color:var(--text)}
 @media(max-width:650px){.symbol-actions{gap:3px}.score-badge{font-size:9px;padding:3px 4px}.topbar{padding:9px 10px}}
 
 
-/* v-10.0.1 — carefully restored dark palette; presentation only */
+/* Dark palette baseline retained for the visual cascade */
 :root{
   color-scheme:dark;
   --bg:#050b16;
