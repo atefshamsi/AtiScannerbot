@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <title>Ati Toobit Futures Scanner v0.9.7</title>
+  <meta name="theme-color" content="#061426">
+  <title>Ati Toobit Futures Scanner v-10.0.2</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,9 +12,10 @@
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark"><img src="ati-toobit-futures-scanner-mark.svg" alt="Ati Toobit logo"></div>
-        <div><div class="brand-title">Ati Toobit Futures Scanner</div><div class="brand-subtitle">اسکنر هوشمند Ati · فقط تحلیل و پایش</div></div>
+        <div><div class="brand-title">Ati Toobit Futures Scanner <span class="version-label">v-10.0.2</span></div><div class="brand-subtitle">فقط تحلیل و پایش</div></div>
       </div>
       <div class="top-status"><span id="connectionDot" class="dot"></span><span id="connectionText">آماده اتصال</span><span class="divider-v"></span><span id="headerClock" class="tiny clock-badge">--:-- · --/--/----</span></div>
+      <div class="header-actions"><button id="startBtn" class="btn btn-primary"><span>▶</span> شروع اسکن</button><button id="stopBtn" class="btn btn-ghost" disabled>توقف</button><button id="searchAgainBtn" class="btn btn-secondary" disabled>↻ جستجوی مجدد</button></div>
     </header>
 
     <main>
@@ -69,7 +70,7 @@
             <div class="order-options"><label><input type="checkbox" name="orderType" value="Market" checked> Market</label><label><input type="checkbox" name="orderType" value="Limit" checked> Limit</label><label><input type="checkbox" name="orderType" value="Trigger" checked> Trigger</label></div>
             <div class="micro-note">TP1: سود هدف ۴٪ و TP2: سود هدف ۱۶٪ سرمایه اختصاصی؛ کارمزد در محاسبه لحاظ نمی‌شود.</div>
           </div>
-          <div class="button-row"><button id="startBtn" class="btn btn-primary"><span>▶</span> شروع اسکن</button><button id="stopBtn" class="btn btn-ghost" disabled>توقف</button></div>
+          
           <div class="micro-note">ریسک هدف حد ضرر: <strong>۰٫۵٪</strong> سرمایه · اهرم فقط برای محاسبه است و در Toobit تغییر نمی‌کند · بدون سفارش خودکار</div>
         </div>
       </section>
@@ -94,7 +95,7 @@
       </section>
 
       <section class="signals-section">
-        <div class="section-head"><div><span class="section-kicker">TOP OPPORTUNITIES</span><h2>فرصت‌های برتر بازار <span class="count-pill" id="cardCount">۰ / ۵</span></h2><p>توضیحات کوتاه و ساده؛ کارت‌های پین‌شده باقی می‌مانند.</p></div><button id="searchAgainBtn" class="btn btn-secondary" disabled>↻ جستجوی مجدد</button></div>
+        <div class="section-head"><div><span class="section-kicker">TOP OPPORTUNITIES</span><h2>فرصت‌های برتر بازار <span class="count-pill" id="cardCount">۰ / ۵</span></h2><p>توضیحات کوتاه و ساده؛ کارت‌های پین‌شده باقی می‌مانند.</p></div></div>
         <div id="signalGrid" class="signal-grid"><div class="empty-state"><div class="empty-orbit">⌁</div><h3>هنوز سیگنالی دریافت نشده</h3><p>حالت اسکن و سرمایه را انتخاب کن و «شروع اسکن» را بزن. اگر شرایط مناسب نباشد، ممکن است سیگنالی نمایش داده نشود.</p></div></div>
       </section>
 
@@ -103,7 +104,7 @@
         <div class="panel info-panel"><div class="panel-title"><span class="title-icon">◷</span><div><h3>راهنمای تصمیم‌گیری</h3><p>قبل از هر ورود</p></div></div><div class="decision-list"><div><strong>۶۰ ثانیه</strong><span>فرصت اولیه برای بررسی؛ نه تضمین ماندگاری قیمت</span></div><div><strong>داده تازه</strong><span>در صورت قطع اتصال یا داده قدیمی، سیگنال را معتبر فرض نکن</span></div><div><strong>سطوح متغیر</strong><span>قبل از ورود، Entry و SL و اهداف را دوباره بررسی کن</span></div></div></div>
       </section>
     </main>
-    <footer><span>Ati Toobit Futures Scanner · v0.9.7</span><span>ساخته‌شده برای تحلیل؛ تصمیم و اجرای معامله با کاربر است.</span></footer>
+    <footer><span>Ati Toobit Futures Scanner · v-10.0.2</span><span>ساخته‌شده برای تحلیل؛ تصمیم و اجرای معامله با کاربر است.</span></footer>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="app.js" defer></script>
