@@ -559,6 +559,11 @@ const server = http.createServer(async (req, res) => {
     }
     if (req.method === 'POST' && url.pathname === '/api/start') {
       const body = await readBody(req);
+      // Wait for a previously stopped scan loop to finish before starting another one.
+      if (state.scanPromise) {
+        state.running = false; state.activeTab = false; state.scanAbort = true;
+        try { await state.scanPromise; } catch {}
+      }
       const capital = Number(body.capital); const leverage = Number(body.leverage);
       if (!Number.isFinite(capital) || capital <= 0) return sendJson(res, 400, { error: 'سرمایه هر معامله را به عددی بزرگ‌تر از صفر وارد کن.' });
       if (!Number.isFinite(leverage) || leverage < 1 || leverage > 200) return sendJson(res, 400, { error: 'اهرم محاسباتی باید بین ۱ تا ۲۰۰ باشد.' });
