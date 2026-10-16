@@ -184,3 +184,25 @@ body{background:#f2f5fa}
 .signal-card-foot{padding:5px 7px}.pin-control{font-size:8px}.btn-recheck{font-size:8px;padding:4px 5px}
 .stats-grid{gap:5px;margin-bottom:8px}.stat-card{padding:7px}.stat-card strong{font-size:16px}
 }
+
+
+/* v-10.1.2 Android UI refinements */
+:root{--status-bar-inset:24px;--navigation-bar-inset:0px}
+@media(max-width:850px){
+  .topbar{padding-top:calc(8px + var(--status-bar-inset,24px))}
+  .app-shell{padding-bottom:calc(24px + var(--navigation-bar-inset,0px))}
+  .signal-top-controls{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 9px 6px;min-width:0}
+  .signal-top-controls .pin-control{gap:4px;font-size:8px;white-space:nowrap;min-width:0}
+  .signal-top-controls .pin-control input{width:12px;height:12px;flex:0 0 12px}
+  .signal-top-controls .btn-recheck{flex:0 1 auto;width:auto;min-width:0;padding:4px 5px;margin:0;font-size:8px;white-space:nowrap;border-radius:7px}
+  .signal-card-foot{padding:5px 9px;min-height:25px}
+  footer{margin-top:16px;margin-bottom:calc(12px + var(--navigation-bar-inset,0px));padding:10px 4px 0;gap:3px;line-height:1.3}
+}
+@media(max-width:520px){
+  .topbar{padding-top:calc(8px + var(--status-bar-inset,24px))}
+  .signal-top-controls{padding:0 7px 5px;gap:5px}
+  .signal-top-controls .pin-control{font-size:8px}
+  .signal-top-controls .btn-recheck{font-size:8px;padding:4px 5px}
+  .signal-card-foot{padding:5px 7px}
+  footer{gap:2px;line-height:1.25;padding-top:8px}
+}
