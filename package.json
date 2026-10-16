@@ -1,8 +1,8 @@
 {
   "name": "toobit-futures-scanner",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "private": true,
-  "description": "Ati Toobit Futures Scanner v-10.0.1; desktop local scanner, analysis only.",
+  "description": "Ati Toobit Futures Scanner v-10.0.2; desktop local scanner, analysis only.",
   "scripts": {
     "start": "node server.js",
     "test": "node --test"
