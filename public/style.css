@@ -188,7 +188,7 @@ body{
 .topbar .brand-title span.version-label{
   background:#10243b!important;border-color:#2b496a!important;
 }
-.topbar .brand-subtitle,.topbar .top-status,.topbar .tiny{color:#d0dced!important}
+.topbar .brand-subtitle,.topbar .top-status,.topbar .tiny{color:#dce7f6!important}
 .topbar .divider-v{background:#38506c!important}
 .panel,.stat-card,.signal-card,.hero-actions,.capital-row,.filter-panel,
 .settings-panel,.empty-state,.hero-market,.info-panel,.controls-panel{
@@ -237,7 +237,7 @@ h1,h2,h3,.hero-copy h1,.market-widget-head h2,.controls-heading h2,
 .notice{background:#0b292b!important;border-color:#285e5b!important}
 .notice-warn{background:#2b2111!important;border-color:#70572d!important}
 .notice strong{color:#f4f7ff!important}
-.notice div span{color:#d0dced!important}
+.notice div span{color:#dce7f6!important}
 .notice-icon{color:#45e0cd!important;border-color:#45e0cd66!important}
 .notice-warn .notice-icon{color:#ffd27a!important;border-color:#ffd27a66!important}
 .stat-card{background:linear-gradient(145deg,#0d1b2f,#081424)!important;border-color:#263d5a!important}
@@ -245,7 +245,7 @@ h1,h2,h3,.hero-copy h1,.market-widget-head h2,.controls-heading h2,
 .stat-foot{color:#9cacc4!important}
 .scan-progress{background:linear-gradient(145deg,#0b1a2d,#071323)!important}
 .progress-track{background:#1a2b43!important}
-.progress-meta{color:#d0dced!important}
+.progress-meta{color:#dce7f6!important}
 .count-pill{background:#142740!important;color:#d4e3f7!important;border-color:#304968!important}
 .signal-card{background:linear-gradient(180deg,#0d1c31,#071323)!important;border-color:#29435f!important}
 .signal-card-head,.signal-card-foot{background:#0b192b!important;border-color:#263b56!important}
