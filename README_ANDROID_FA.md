@@ -1,6 +1,6 @@
-# اسکنر اندروید Toobit Futures — نسخه v-10.5.2
+# اسکنر اندروید Toobit Futures — نسخه v-10.6.2
 
-شاخه سورس این نسخه: `ati-toobit-android-debug-apk-v-10.5.2`.
+شاخه سورس این نسخه: `ati-toobit-android-debug-apk-v-10.6.2`.
 
 ## امکانات
 - فیلتر بازار و حالت اسکن
@@ -13,7 +13,7 @@
 - فقط تحلیل و پایش؛ هیچ سفارش واقعی ارسال نمی‌شود
 
 ## نام خروجی
-- Artifact ZIP: `ati-toobit-android-debug-apk-v-10.5.2`
-- فایل نصب: `ati-toobit-android-debug-apk-v-10.5.2.apk`
+- Artifact ZIP: `ati-toobit-android-debug-apk-v-10.6.2`
+- فایل نصب: `ati-toobit-android-debug-apk-v-10.6.2.apk`
 
 ساخت موفق APK به‌تنهایی تضمین نمی‌کند API زنده Toobit در همه شبکه‌ها در دسترس باشد؛ اتصال و نتایج باید آزمایش شوند.
