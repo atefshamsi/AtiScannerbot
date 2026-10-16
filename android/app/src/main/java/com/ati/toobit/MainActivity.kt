@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
+import android.view.WindowInsets
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -25,8 +26,8 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // Keep WebView content below the Android status bar on modern Android versions.
-        WindowCompat.setDecorFitsSystemWindows(window, true)
-        window.statusBarColor = Color.rgb(6, 20, 38)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.rgb(3, 16, 32)
         // Use light system icons on the dark status/navigation bars.
         window.decorView.systemUiVisibility = 0
@@ -38,6 +39,16 @@ class MainActivity : Activity() {
         web.webChromeClient = WebChromeClient()
         web.addJavascriptInterface(NativeApi(), "AndroidApi")
         setContentView(web)
+        web.setOnApplyWindowInsetsListener { _, insets ->
+            val statusInset = insets.getInsets(WindowInsets.Type.statusBars()).top
+            val navigationInset = insets.getInsets(WindowInsets.Type.navigationBars()).bottom
+            web.evaluateJavascript(
+                "document.documentElement.style.setProperty('--status-bar-inset', '${statusInset}px');" +
+                    "document.documentElement.style.setProperty('--navigation-bar-inset', '${navigationInset}px');",
+                null
+            )
+            insets
+        }
         web.loadUrl("file:///android_asset/index.html")
     }
 
