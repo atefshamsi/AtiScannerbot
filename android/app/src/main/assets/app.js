@@ -1,7 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const MAX_CARDS = 5, MIN_SCORE = 72, REQUEST_GAP_MS = 180;
-const state = { running:false, stopRequested:false, rechecking:new Set(), favorites:[], pins:[], signals:[], settings:{scanMode:'priority',horizonMode:'fast',orderTypes:['Market','Limit','Trigger'],useCaseFilterEnabled:false,useCaseGroups:[],marketFilterEnabled:false,marketGroups:[]}, capital:100, leverage:10, checked:0,total:0,qualified:0,round:0,lastDataAt:0,currentSymbol:'',lastTickers:new Map(),lastRequestAt:0,requestChain:Promise.resolve(),toastTimer:null,startedAt:0 };
+const state = { running:false, stopRequested:false, rechecking:new Set(), favorites:[], pins:[], signals:[], settings:{scanMode:'priority',horizonMode:'fast',orderTypes:['Market','Limit','Trigger'],useCaseFilterEnabled:false,useCaseGroups:[],marketFilterEnabled:false,marketGroups:[]}, capital:100, leverage:10, checked:0,total:0,qualified:0,round:0,lastDataAt:0,currentSymbol:'',lastTickers:new Map(),lastRequestAt:0,requestChain:Promise.resolve(),recentCandidates:new Map(),toastTimer:null,startedAt:0 };
 const fmt=(n,max=8)=>Number.isFinite(Number(n))?Number(n).toLocaleString('en-US',{maximumFractionDigits:max}):'—';
 const faNum=n=>Number(n||0).toLocaleString('fa-IR');
 const timeFmt=ts=>ts?new Date(ts).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'دریافت نشده';
@@ -62,11 +62,20 @@ async function scanOne(contract,tickers,manual=false){
     if(idx>=0){
       const old=state.signals[idx];
       state.signals[idx]={...cand,currentPrice:price,lastCheckedAt:checkedAt,firstSeen:old.firstSeen||Date.now(),expiresAt:Date.now()+30000};
-    }else if(state.pins.length+state.signals.length<MAX_CARDS){
-      state.signals.push({...cand,currentPrice:price,lastCheckedAt:checkedAt,firstSeen:Date.now(),expiresAt:Date.now()+30000});
     }else{
-      const weak=state.signals.reduce((w,x)=>!w||x.score<w.score?x:w,null);
-      if(weak&&cand.score>weak.score)state.signals=[...state.signals.filter(x=>x.id!==weak.id),{...cand,currentPrice:price,lastCheckedAt:checkedAt,firstSeen:Date.now(),expiresAt:Date.now()+30000}];
+      const previous=state.recentCandidates.get(cand.id);
+      const recent=previous&&Date.now()-previous.at<10*60*1000;
+      const materialMove=recent&&Number.isFinite(cand.atr)&&Math.abs(cand.entry-previous.entry)>=cand.atr*.8;
+      const meaningfulImprovement=recent&&cand.score>=previous.score+8;
+      if(!recent||materialMove||meaningfulImprovement){
+        const row={...cand,currentPrice:price,lastCheckedAt:checkedAt,firstSeen:Date.now(),expiresAt:Date.now()+30000};
+        if(state.pins.length+state.signals.length<MAX_CARDS)state.signals.push(row);
+        else{
+          const weak=state.signals.reduce((w,x)=>!w||x.score<w.score?x:w,null);
+          if(weak&&cand.score>weak.score)state.signals=[...state.signals.filter(x=>x.id!==weak.id),row];
+        }
+        state.recentCandidates.set(cand.id,{at:Date.now(),score:cand.score,entry:cand.entry,atr:cand.atr});
+      }
     }
   }
   state.lastDataAt=checkedAt;
