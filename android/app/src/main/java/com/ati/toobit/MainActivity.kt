@@ -6,11 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Base64
 import android.view.WindowManager
-import android.view.WindowInsets
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowCompat
 import java.net.HttpURLConnection
 import java.net.URL
@@ -39,9 +40,9 @@ class MainActivity : Activity() {
         web.webChromeClient = WebChromeClient()
         web.addJavascriptInterface(NativeApi(), "AndroidApi")
         setContentView(web)
-        web.setOnApplyWindowInsetsListener { _, insets ->
-            val statusInset = insets.getInsets(WindowInsets.Type.statusBars()).top
-            val navigationInset = insets.getInsets(WindowInsets.Type.navigationBars()).bottom
+        ViewCompat.setOnApplyWindowInsetsListener(web) { _, insets ->
+            val statusInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            val navigationInset = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
             web.evaluateJavascript(
                 "document.documentElement.style.setProperty('--status-bar-inset', '${statusInset}px');" +
                     "document.documentElement.style.setProperty('--navigation-bar-inset', '${navigationInset}px');",
