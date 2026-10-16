@@ -1,6 +1,6 @@
 'use strict';
 const $ = id => document.getElementById(id);
-const state = { running: false, lastCards: [], heartbeat: null, poll: null, toastTimer: null, startTime: null, rechecking: new Set(), initialized: false, favorites: [], settings: { scanMode: 'priority', horizonMode: 'fast', orderTypes: ['Market','Limit','Trigger'], useCaseFilterEnabled:false, useCaseGroups:[], marketFilterEnabled:false, marketGroups:[] } };
+const state = { restarting: false, running: false, lastCards: [], heartbeat: null, poll: null, toastTimer: null, startTime: null, rechecking: new Set(), initialized: false, favorites: [], settings: { scanMode: 'priority', horizonMode: 'fast', orderTypes: ['Market','Limit','Trigger'], useCaseFilterEnabled:false, useCaseGroups:[], marketFilterEnabled:false, marketGroups:[] } };
 const fmt = (n, max = 8) => Number.isFinite(Number(n)) ? Number(n).toLocaleString('en-US', { maximumFractionDigits: max }) : '—';
 const faNum = n => Number(n).toLocaleString('fa-IR');
 const timeFmt = ts => ts ? new Date(ts).toLocaleTimeString('fa-IR', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) : 'دریافت نشده';
@@ -144,7 +144,7 @@ function cardHtml(s) {
       ${s.warning ? `<div class="${warningClass}">${escapeHtml(s.warning)}</div>` : ''}${staleWarn}
       <div class="signal-reasons">${(s.reasons || []).map(escapeHtml).join(' · ')}</div>${historyHtml}
     </div>
-    <div class="signal-card-foot"><span class="expire-text">${s.pinned ? 'PINNED' : `حذف در ${ageSeconds == null ? '—' : faNum(ageSeconds)+'ث'}`}</span></div>
+    <div class="signal-card-foot"><span class="expire-text">${s.pinned ? '' : `حذف در ${ageSeconds == null ? '—' : faNum(ageSeconds)+'ث'}`}</span></div>
   </article>`;
 }
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -192,7 +192,22 @@ $('marketReviewBtn').addEventListener('click', async () => {
 });
 document.querySelectorAll('input[name="orderType"]').forEach(el => el.addEventListener('change', saveSettings));
 $('stopBtn').addEventListener('click', stopScan);
-$('searchAgainBtn').addEventListener('click', async () => { await stopScan(); await startScan(); });
+$('searchAgainBtn').addEventListener('click', async () => {
+  if ($('searchAgainBtn').disabled || state.restarting) return;
+  state.restarting = true;
+  $('searchAgainBtn').disabled = true;
+  $('searchAgainBtn').textContent = 'در حال شروع…';
+  try {
+    await api('/api/stop', { method:'POST', body:'{}' });
+    await startScan();
+  } catch (error) {
+    showToast('شروع مجدد اسکن ناموفق بود: ' + error.message);
+  } finally {
+    state.restarting = false;
+    $('searchAgainBtn').textContent = '↻ جستجوی مجدد';
+    await refresh();
+  }
+});
 window.addEventListener('pagehide', () => { try { navigator.sendBeacon('/api/stop', new Blob(['{}'], { type:'application/json' })); } catch {} });
 (async () => {
   await refresh();
