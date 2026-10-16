@@ -276,10 +276,21 @@ body{background:#f2f5fa}
 }
 
 
-/* v-10.5.2 Android fix: move header content safely below the status bar with extra top clearance */
+
+
+/* v-10.6.2: compact Android header by about 35% below the system status bar; preserve safe inset and desktop layout */
 @media(max-width:850px){
-  .topbar{padding-top:calc(2px + var(--status-bar-inset,24px) + 12px) !important;}
+  .topbar{padding-top:var(--status-bar-inset,24px) !important;padding-bottom:2px !important;gap:3px 7px !important;margin-bottom:8px !important;min-height:0 !important;}
+  .topbar .header-actions{gap:5px !important;margin-top:0 !important;}
+  .topbar .header-actions .btn{padding:5px 6px !important;line-height:1.15 !important;}
 }
 @media(max-width:520px){
-  .topbar{padding-top:calc(2px + var(--status-bar-inset,24px) + 12px) !important;}
+  .topbar{padding-top:var(--status-bar-inset,24px) !important;padding-bottom:2px !important;gap:2px 5px !important;margin-bottom:7px !important;}
+  .topbar .brand{gap:7px !important;}
+  .topbar .brand-mark{width:29px !important;height:29px !important;flex-basis:29px !important;border-radius:8px !important;}
+  .topbar .brand-title{font-size:10px !important;line-height:1.15 !important;}
+  .topbar .brand-subtitle{font-size:7px !important;line-height:1.15 !important;margin-top:1px !important;}
+  .topbar .top-status{font-size:8px !important;margin-top:0 !important;line-height:1.1 !important;}
+  .topbar .header-actions{gap:4px !important;}
+  .topbar .header-actions .btn{font-size:8px !important;padding:5px 5px !important;line-height:1.1 !important;}
 }
