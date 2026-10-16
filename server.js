@@ -136,6 +136,12 @@ function atr(candles, period = 14) {
 function analyzeTimeframe(candles) {
   if (!Array.isArray(candles) || candles.length < 60) return { ready: false, trend: 'نامشخص', score: 0, reason: 'کندل کافی نیست' };
   candles = candles.map(parseKline).filter(c => [c.open,c.high,c.low,c.close].every(Number.isFinite)).sort((a,b) => a.time-b.time);
+  // Exclude a still-forming final candle when the API provides its close timestamp.
+  const lastRaw = candles.at(-1);
+  if (lastRaw && Number.isFinite(lastRaw.closeTime)) {
+    const closeTimeMs = lastRaw.closeTime < 1e12 ? lastRaw.closeTime * 1000 : lastRaw.closeTime;
+    if (closeTimeMs >= now()) candles = candles.slice(0, -1);
+  }
   if (candles.length < 60) return { ready: false, trend: 'نامشخص', score: 0, reason: 'کندل معتبر کافی نیست' };
   const closes = candles.map(c => c.close);
   const e9 = ema(closes, 9), e21 = ema(closes, 21), e26 = ema(closes, 26), e12 = ema(closes, 12), e26macd = ema(closes, 26);
@@ -144,10 +150,14 @@ function analyzeTimeframe(candles) {
   const signalLineCompact = ema(macdValues, 9);
   const macdLine = macd.at(-1), signalLine = signalLineCompact.at(-1);
   const last = candles.at(-1), prev = candles.at(-2);
+  const cloudIndex = candles.length - 1 - 26;
   const tenkan = rollingMid(candles, 9, candles.length - 1);
   const kijun = rollingMid(candles, 26, candles.length - 1);
-  const spanB = rollingMid(candles, 52, candles.length - 1);
-  const spanA = tenkan != null && kijun != null ? (tenkan + kijun) / 2 : null;
+  // The cloud visible at the current bar was calculated 26 bars earlier.
+  const cloudTenkan = cloudIndex >= 0 ? rollingMid(candles, 9, cloudIndex) : null;
+  const cloudKijun = cloudIndex >= 0 ? rollingMid(candles, 26, cloudIndex) : null;
+  const spanB = cloudIndex >= 0 ? rollingMid(candles, 52, cloudIndex) : null;
+  const spanA = cloudTenkan != null && cloudKijun != null ? (cloudTenkan + cloudKijun) / 2 : null;
   const cloudTop = spanA != null && spanB != null ? Math.max(spanA, spanB) : null;
   const cloudBottom = spanA != null && spanB != null ? Math.min(spanA, spanB) : null;
   const trendUp = e9.at(-1) > e21.at(-1) && e21.at(-1) > e26.at(-1);
@@ -169,7 +179,18 @@ function analyzeTimeframe(candles) {
   const support = Math.min(...range.map(c => c.low));
   const volatility = atr(candles, 14);
   const aligned = Math.max(up, down);
-  return { ready: true, trend, up, down, last: last.close, candleTime: last.time, atr: volatility, support, resistance, e9: e9.at(-1), e21: e21.at(-1), macdUp, macdDown, cloudUp, cloudDown, bullishCandle, bearishCandle, score: Math.min(100, Math.round(aligned / 6 * 100)), reason: trend === 'LONG' ? 'هم‌راستایی روند/اندیکاتورها به سمت صعود' : trend === 'SHORT' ? 'هم‌راستایی روند/اندیکاتورها به سمت نزول' : 'نشانه‌ها هم‌جهت نیستند' };
+  const recent = candles.slice(-12);
+  const recentRangeHigh = Math.max(...recent.map(c => c.high));
+  const recentRangeLow = Math.min(...recent.map(c => c.low));
+  const rangeWidth = recentRangeHigh - recentRangeLow;
+  const rangeMarket = volatility > 0 && rangeWidth <= volatility * 3.2;
+  const previous = candles.slice(-25, -5);
+  const previousAtr = atr(previous, 14) || volatility;
+  const recentMove = previous.length ? Math.abs(last.close - previous.at(-1).close) : 0;
+  const suddenPump = previousAtr > 0 && recentMove >= previousAtr * 3.5 && rangeMarket;
+  const bullishRejection = last.close > last.open && (last.close - last.low) > (last.high - last.low) * 0.60;
+  const bearishRejection = last.close < last.open && (last.high - last.close) > (last.high - last.low) * 0.60;
+  return { ready: true, trend, up, down, last: last.close, candleTime: last.time, atr: volatility, support, resistance, e9: e9.at(-1), e21: e21.at(-1), macdUp, macdDown, cloudUp, cloudDown, bullishCandle, bearishCandle, bullishRejection, bearishRejection, rangeMarket, rangeHigh: recentRangeHigh, rangeLow: recentRangeLow, suddenPump, score: Math.min(100, Math.round(aligned / 6 * 100)), reason: trend === 'LONG' ? 'هم‌راستایی روند/اندیکاتورها به سمت صعود' : trend === 'SHORT' ? 'هم‌راستایی روند/اندیکاتورها به سمت نزول' : 'نشانه‌ها هم‌جهت نیستند' };
 }
 function getFilter(contract, type) { return (contract.filters || []).find(f => f.filterType === type) || {}; }
 function roundDownStep(value, step) { if (!(step > 0)) return value; const precision = Math.max(0, (String(step).split('.')[1] || '').length); return Number((Math.floor(value / step + 1e-10) * step).toFixed(precision)); }
@@ -185,12 +206,37 @@ function makeCandidate(contract, price, frames, capital, leverage = 10) {
     const macdPoints = 5 * [h1,m15,m5].filter(f => side === 'LONG' ? f.macdUp : f.macdDown).length;
     const cloudPoints = 4 * [h1,m15,m5].filter(f => side === 'LONG' ? f.cloudUp : f.cloudDown).length;
     const paPoints = 4 * [h1,m15,m5].filter(f => side === 'LONG' ? f.bullishCandle : f.bearishCandle).length;
-    const score = Math.min(100, Math.round(tfPoints * 0.78 + macdPoints + cloudPoints + paPoints));
+    const indicatorScore = Math.min(100, Math.round(tfPoints * 0.78 + macdPoints + cloudPoints + paPoints));
     const atrVal = m5.atr || m15.atr || price * 0.01;
+    const rangeHigh = Math.max(m5.resistance, m15.resistance);
+    const rangeLow = Math.min(m5.support, m15.support);
+    const nearResistance = price >= m5.resistance - atrVal * 0.25;
+    const nearSupport = price <= m5.support + atrVal * 0.25;
+    const breakoutLong = price > m5.resistance + atrVal * 0.15 && m5.bullishCandle && m5.macdUp;
+    const breakoutShort = price < m5.support - atrVal * 0.15 && m5.bearishCandle && m5.macdDown;
+    const rangeMid = (rangeHigh + rangeLow) / 2;
+    const inRangeMiddle = (m5.rangeMarket || m15.rangeMarket) && Math.abs(price - rangeMid) < Math.max(atrVal * 0.7, (rangeHigh-rangeLow) * 0.18);
+    const pumpFlag = Boolean(m5.suddenPump || m15.suddenPump);
     const structure = side === 'LONG' ? Math.min(m5.support, m15.support) : Math.max(m5.resistance, m15.resistance);
-    const nearResistance = side === 'LONG' && price >= m5.resistance - atrVal * 0.25;
-    const nearSupport = side === 'SHORT' && price <= m5.support + atrVal * 0.25;
+    const atResistance = side === 'LONG' && nearResistance;
+    const atSupport = side === 'SHORT' && nearSupport;
+    const atLongSupport = side === 'LONG' && nearSupport;
+    const atShortResistance = side === 'SHORT' && nearResistance;
     const nearMean = Math.abs(price - m5.e21) / price < 0.003;
+    const confirmedLongReversal = atLongSupport && m5.bullishRejection && m5.macdUp;
+    const confirmedShortReversal = atShortResistance && m5.bearishRejection && m5.macdDown;
+    // Hard entry-quality gate: indicator score cannot override poor location or absent confirmation.
+    if (inRangeMiddle && !breakoutLong && !breakoutShort) continue;
+    if (atResistance && !breakoutLong) continue;
+    if (atSupport && !breakoutShort) continue;
+    if (side === 'LONG' && atLongSupport && !confirmedLongReversal && !breakoutLong) continue;
+    if (side === 'SHORT' && atShortResistance && !confirmedShortReversal && !breakoutShort) continue;
+    if (side === 'LONG' && nearResistance && !breakoutLong) continue;
+    if (side === 'SHORT' && nearSupport && !breakoutShort) continue;
+    if (pumpFlag && side === 'SHORT' && !confirmedShortReversal && !breakoutShort) continue;
+    if (pumpFlag && side === 'LONG' && !breakoutLong && !confirmedLongReversal) continue;
+    const entryQuality = (breakoutLong && side === 'LONG') || (breakoutShort && side === 'SHORT') || (confirmedLongReversal && side === 'LONG') || (confirmedShortReversal && side === 'SHORT');
+    const score = Math.max(0, Math.min(100, Math.round(indicatorScore * 0.72 + (entryQuality ? 18 : 0) + (nearMean ? 4 : 0))));
     let orderType = 'Market';
     let entry = price;
     if (nearResistance || nearSupport) {
@@ -203,6 +249,9 @@ function makeCandidate(contract, price, frames, capital, leverage = 10) {
     const distance = Math.abs(entry - sl);
     if (!(distance > 0) || !Number.isFinite(distance) || distance / price > 0.08) continue;
     const disagreement = [h1,m15,m5].some(f => f.trend !== side);
+    const countertrend = h1.trend !== side;
+    if (countertrend && !((side === 'LONG' && confirmedLongReversal) || (side === 'SHORT' && confirmedShortReversal))) continue;
+    if (score < MIN_SCORE) continue;
     const qtyRisk = capital > 0 ? capital * 0.005 / distance : null;
     const maxMarginQty = capital > 0 && leverage > 0 ? capital * leverage / entry : null;
     const lot = getFilter(contract, 'LOT_SIZE');
@@ -227,12 +276,16 @@ function makeCandidate(contract, price, frames, capital, leverage = 10) {
     reasons.push(`ساختار ۱۵دقیقه: ${m15.trend}`);
     reasons.push(`زمان‌بندی ۵دقیقه: ${m5.trend}`);
     if (disagreement) reasons.push('تایم‌فریم‌ها کاملاً هم‌جهت نیستند');
+    if (countertrend) reasons.push('برگشت کوتاه‌مدت خلاف روند ۱ساعته؛ ریسک بالاتر');
+    if (pumpFlag) reasons.push('ورود پرریسک پس از جهش');
+    if (breakoutLong || breakoutShort) reasons.push('شکست محدوده با تأیید قیمت و MACD');
+    if (confirmedLongReversal || confirmedShortReversal) reasons.push('برگشت از ناحیه کلیدی با تأیید کندل و MACD');
     const candidate = {
       id: `${contract.symbol}:${side}`, symbol: contract.symbol, displayName: contract.symbolName || contract.symbol,
       side, score, entry, sl, tp1, tp2, rr, orderType, capital, leverage, tp1TargetProfit: capital * 0.04, tp2TargetProfit: capital * 0.16, riskTarget: capital * 0.005,
       quantity, riskEstimate: riskAmount, notional, minQty, stepSize: step,
       timestamp: now(), dataTimestamp: now(), candleTimes: { h1: h1.candleTime, m15: m15.candleTime, m5: m5.candleTime },
-      status: disagreement ? 'معتبر با هشدار' : 'معتبر', warning: disagreement ? 'تایم‌فریم‌ها اختلاف دارند؛ قبل از تصمیم دوباره بررسی کن.' : '',
+      status: pumpFlag ? 'معتبر با هشدار' : countertrend || disagreement ? 'معتبر با هشدار' : 'معتبر', warning: pumpFlag ? 'ورود پرریسک پس از جهش' : countertrend ? 'برگشت کوتاه‌مدت خلاف روند ۱ساعته؛ ریسک بالاتر.' : disagreement ? 'تایم‌فریم‌ها اختلاف دارند؛ قبل از تصمیم دوباره بررسی کن.' : '',
       reasons, timeframe: { h1: h1.trend, m15: m15.trend, m5: m5.trend },
       atr: atrVal, priceAtSignal: price, pinned: false, history: []
     };
